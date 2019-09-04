@@ -92,6 +92,7 @@ namespace MPG_Labs
         {
             if (input.X == 0 && input.Y == 0 & input.Z == 0)
             {
+                Console.WriteLine("ERROR: DIVIDE BY ZERO ERROR. RETURNING VALUE OF ZERO INSTEAD");
                 return input * 0;
                 //Write an error log here.
             }
@@ -153,30 +154,6 @@ namespace MPG_Labs
                 Console.WriteLine("ERROR: Output is Zero.  Is this a Zero vector?");
                 return 0;
             }
-        }
-
-        //Adds the input xyz values to the X Y Z of this vector.
-        public void SumRect(float x, float y, float z)
-        {
-            X += x;
-            Y += y;
-            Z += z;
-        }
-
-        //Subtracts the input values from the Vector.
-        public void SubtractRect(float x, float y, float z)
-        {
-            X -= x;
-            Y -= y;
-            Z -= z;
-        }
-
-        //Scales/Multiplies the rect by the input values.
-        public void ScaleRect(float input)
-        {
-            X *= input;
-            Y *= input;
-            Z *= input;
         }
 
     }

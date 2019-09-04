@@ -85,12 +85,16 @@ namespace MPG_Labs
             Console.ReadLine();
             Console.Clear();
 
-            Vector3D scaleRect = new Vector3D(Vector1.GetX(), Vector1.GetY(), Vector1.GetZ(), Vector1.GetW());
+            Console.WriteLine("Please input a number to multiply the vector by.");
+            int temp = float.Parse(Console.ReadLine());
+            Vector3D scaleRect = Vector1 * temp;
 
-            scaleRect.ScaleRect(scaleRect.GetW());
-            Console.WriteLine("Result of Scaling Vector 1 by it's provided Scale value");
-            Console.WriteLine("Scale Value is: " + Vector1.GetW());
-            Console.WriteLine("Rect:");
+            Console.ReadLine();
+            Console.WriteLine("Original Value:");
+            Vector1.PrintRect();
+            Vector1.PrintMag();
+
+            Console.WriteLine("Scaled Value:");
             scaleRect.PrintRect();
             scaleRect.PrintMag();
 
