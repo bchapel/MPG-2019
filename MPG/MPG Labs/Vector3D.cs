@@ -65,6 +65,47 @@ namespace MPG_Labs
             float magnitude = GetMag();
             Console.WriteLine("Magnitude: " + magnitude);
         }
+        //Add two vectors.  Operator overload for easy use.
+        public static Addition operator+(Vector3D one, Vector3D two)
+        {
+            Vector3D sum = new Vector3D(one.X + two.X, one.Y + two.Y, one.Z + two.Z);
+            return sum;
+        }
+
+        //Subtract two vectors. Operator Overload for easy use.
+        public static Subtraction operator -(Vector3D one, Vector3D two)
+        {
+            Vector3D difference = new Vector3D(one.X - two.X, one.Y - two.Y, one.Z - two.Z);
+            return difference;
+        }
+
+        //Scales a specified Vector by a designated scaling amount.  Operator Overload for easy use.
+        public static Scale operator *(Vector3D one, float scale)
+        {
+            one.X *= scale;
+            one.Y *= scale;
+            one.Z *= scale;
+            return one;
+        }
+        //Normalizes the specified Vector.
+        public static Normalize operator !(Vector3D input)
+        {
+            if (input.X == 0 && input.Y == 0 & input.Z == 0)
+            {
+                return input * 0;
+                //Write an error log here.
+            }
+            else
+            {
+                float normal = (float)Math.Sqrt(input.X + input.Y + input.Z);
+                input.X / normal;
+                input.Y / normal;
+                input.Z / normal;
+
+                return input;
+            }
+            
+        }
         //Return the private X value.
         public float GetX()
         {

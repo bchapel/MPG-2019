@@ -67,9 +67,7 @@ namespace MPG_Labs
             Console.WriteLine("");
             Console.ReadLine();
 
-            Vector3D sumVector = new Vector3D(Vector1.GetX(), Vector1.GetY(), Vector1.GetZ());
-
-            sumVector.SumRect(Vector2.GetX(), Vector2.GetY(), Vector2.GetZ());
+            Vector3D sumVector = Vector1 + Vector2;
             Console.WriteLine("Sum of Vector 1 and 2");
             Console.WriteLine("Rect:");
             sumVector.PrintRect();
@@ -78,8 +76,7 @@ namespace MPG_Labs
             Console.ReadLine();
             Console.WriteLine();
 
-            Vector3D subVector = new Vector3D(Vector1.GetX(), Vector1.GetY(), Vector1.GetZ());
-            subVector.SubtractRect(Vector2.GetX(), Vector2.GetY(), Vector2.GetZ());
+            Vector3D subVector = Vector1 - Vector2;
             Console.WriteLine("Difference of Vector 1 and 2");
             Console.WriteLine("Rect:");
             subVector.PrintRect();
