@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\svc-student\\source\\repos\\MPG Labs\\MPG Labs\\MPG Labs.csproj": {}
+    "C:\\Users\\svc-student\\Desktop\\GitHub\\MPG-2019\\MPG\\MPG Labs\\MPG Labs.csproj": {}
   },
   "projects": {
-    "C:\\Users\\svc-student\\source\\repos\\MPG Labs\\MPG Labs\\MPG Labs.csproj": {
+    "C:\\Users\\svc-student\\Desktop\\GitHub\\MPG-2019\\MPG\\MPG Labs\\MPG Labs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\svc-student\\source\\repos\\MPG Labs\\MPG Labs\\MPG Labs.csproj",
+        "projectUniqueName": "C:\\Users\\svc-student\\Desktop\\GitHub\\MPG-2019\\MPG\\MPG Labs\\MPG Labs.csproj",
         "projectName": "MPG Labs",
-        "projectPath": "C:\\Users\\svc-student\\source\\repos\\MPG Labs\\MPG Labs\\MPG Labs.csproj",
+        "projectPath": "C:\\Users\\svc-student\\Desktop\\GitHub\\MPG-2019\\MPG\\MPG Labs\\MPG Labs.csproj",
         "packagesPath": "C:\\Users\\svc-student\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\svc-student\\source\\repos\\MPG Labs\\MPG Labs\\obj\\",
+        "outputPath": "C:\\Users\\svc-student\\Desktop\\GitHub\\MPG-2019\\MPG\\MPG Labs\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",

@@ -12,7 +12,7 @@ namespace MPG_Labs
 
      */
 
-        static void Main(string[] args)
+        static void Lab01()
         {
             //Temporary float values used to store user input and create two vectors.
             float tempX1;
@@ -86,7 +86,7 @@ namespace MPG_Labs
             Console.Clear();
 
             Console.WriteLine("Please input a number to multiply the vector by.");
-            int temp = float.Parse(Console.ReadLine());
+            float temp = float.Parse(Console.ReadLine());
             Vector3D scaleRect = Vector1 * temp;
 
             Console.ReadLine();
