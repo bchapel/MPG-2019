@@ -106,7 +106,7 @@ namespace MPG_Labs
 
                 newPosition = oldPositon + oldVelocity * timeStep + 1 / 2 * oldAcceleration * (timeStep * timeStep);
                 //New acceleration is constant.
-                newVelocity = oldVelocity + (newAcceleration + oldAcceleration) * 0.5f + timeStep;
+                newVelocity = oldVelocity + (newAcceleration + oldAcceleration) * 0.5f * timeStep;
 
                 oldAcceleration = newAcceleration;
                 oldPositon = newPosition;
@@ -133,7 +133,7 @@ namespace MPG_Labs
 
                 newPosition = oldPositon + oldVelocity * timeStep + 1 / 2 * oldAcceleration * (timeStep * timeStep);
                 newAcceleration = -9.8f + (0.1f * newVelocity);
-                newVelocity = oldVelocity + (newAcceleration + oldAcceleration) * 0.5f + timeStep;
+                newVelocity = oldVelocity + (newAcceleration + oldAcceleration) * 0.5f * timeStep;
 
                 oldAcceleration = newAcceleration;
                 oldPositon = newPosition;
@@ -145,7 +145,7 @@ namespace MPG_Labs
         private static void WriteFile(string filename, float velocity, float time, float height)
         {
             //WARNING: CHANGE OUTPUT FOLDER TO SOMEWHERE ELSE
-            using (StreamWriter stream = new StreamWriter("C:\\Users\\svc-student\\Desktop\\TestFolder\\" + filename + ".csv", true))
+            using (StreamWriter stream = new StreamWriter("C:\\Users\\bowen\\Desktop\\TestFolder\\" + filename + ".csv", true))
             {
                 string output = time.ToString() + "," + velocity.ToString() + "," + height.ToString();
                 stream.WriteLine(output);
