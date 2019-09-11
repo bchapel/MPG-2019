@@ -26,7 +26,7 @@ namespace MPG_Labs
 
                 newPosition = oldPositon + newVelocity * timeStep;
                 newVelocity = oldVelocity + newAcceleration * timeStep;
-                timeStep += timeStep;
+                elapsedTime += timeStep;
 
                 oldPositon = newPosition;
                 oldVelocity = newVelocity;
@@ -52,7 +52,7 @@ namespace MPG_Labs
 
                 newPosition = oldPositon + newVelocity * timeStep;
                 newVelocity = oldVelocity + newAcceleration * timeStep;
-                timeStep += timeStep;
+                elapsedTime += timeStep;
 
                 oldPositon = newPosition;
                 oldVelocity = newVelocity;
@@ -78,7 +78,7 @@ namespace MPG_Labs
 
                 newPosition = oldPositon + newVelocity * timeStep;
                 newVelocity = oldVelocity + newAcceleration * timeStep;
-                timeStep += timeStep;
+                elapsedTime += timeStep;
 
                 oldPositon = newPosition;
                 oldVelocity = newVelocity;
@@ -102,12 +102,13 @@ namespace MPG_Labs
             while (elapsedTime < 10)
             {
                 Console.WriteLine("Elapsed Time: " + elapsedTime + ", Position: " + newPosition + ", Velocity: " + newVelocity);
-                WriteFile("ex02_euler_0-10", newVelocity, elapsedTime, newPosition);
+                WriteFile("ex02_verlet", newVelocity, elapsedTime, newPosition);
 
                 newPosition = oldPositon + oldVelocity * timeStep + 1 / 2 * oldAcceleration * (timeStep * timeStep);
                 //New acceleration is constant.
                 newVelocity = oldVelocity + (newAcceleration + oldAcceleration) * 0.5f * timeStep;
 
+                elapsedTime += timeStep;
                 oldAcceleration = newAcceleration;
                 oldPositon = newPosition;
                 oldVelocity = newVelocity;
@@ -129,12 +130,12 @@ namespace MPG_Labs
             while (elapsedTime < 10)
             {
                 Console.WriteLine("Elapsed Time: " + elapsedTime + ", Position: " + newPosition + ", Velocity: " + newVelocity);
-                WriteFile("ex02_euler_0-10", newVelocity, elapsedTime, newPosition);
+                WriteFile("ex02_wind", newVelocity, elapsedTime, newPosition);
 
                 newPosition = oldPositon + oldVelocity * timeStep + 1 / 2 * oldAcceleration * (timeStep * timeStep);
-                newAcceleration = -9.8f + (0.1f * newVelocity);
+                newAcceleration = -9.8f - (0.1f * newVelocity);
                 newVelocity = oldVelocity + (newAcceleration + oldAcceleration) * 0.5f * timeStep;
-
+                elapsedTime += timeStep;
                 oldAcceleration = newAcceleration;
                 oldPositon = newPosition;
                 oldVelocity = newVelocity;
@@ -145,7 +146,7 @@ namespace MPG_Labs
         private static void WriteFile(string filename, float velocity, float time, float height)
         {
             //WARNING: CHANGE OUTPUT FOLDER TO SOMEWHERE ELSE
-            using (StreamWriter stream = new StreamWriter("C:\\Users\\bowen\\Desktop\\TestFolder\\" + filename + ".csv", true))
+            using (StreamWriter stream = new StreamWriter("C:\\Users\\svc-student\\Desktop\\TestFolder\\" + filename + ".csv", true))
             {
                 string output = time.ToString() + "," + velocity.ToString() + "," + height.ToString();
                 stream.WriteLine(output);
