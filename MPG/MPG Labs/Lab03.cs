@@ -9,52 +9,66 @@ namespace MPG_Labs
         Summary:
 
     */
-        public Lab03()
+        public static void Main()
         {
 
             //asks the user to enter the magnitude, heading, and pitch of the space ship's velocity
             Console.WriteLine("A space ship is moving - please enter the components for it's velocity vector");
             Console.WriteLine("Please enter a Magnitude");
-            tempM = float.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter a Heading");
-            tempH = float.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter a Pitch");
-            tempP = float.Parse(Console.ReadLine());
+            float tempM = float.Parse(Console.ReadLine());
+            Console.WriteLine("Please enter a Heading (Degrees)");
+            float tempH = float.Parse(Console.ReadLine());
+            Console.WriteLine("Please enter a Pitch (Degrees)");
+            float tempP = float.Parse(Console.ReadLine());
 
             Vector3D velocity = new Vector3D();
+            tempH = velocity.DegreeToRad(tempH);
+            tempP = velocity.DegreeToRad(tempP);
             velocity.SetRectGivenMagHeadPitch(tempM, tempH, tempP);
+
+            Console.WriteLine();
             //asks the user to enter the x, y, and z components of the speed boost gate's normal vector
             Console.WriteLine("The ship is approaching a gate. Please enter the XYZ components of the gate's normal vector");
             Console.WriteLine("Please Input an X Coordinate");
-            tempX = float.Parse(Console.ReadLine());
+            float tempX = float.Parse(Console.ReadLine());
             Console.WriteLine("Please Input an Y Coordinate");
-            tempY = float.Parse(Console.ReadLine());
+            float tempY = float.Parse(Console.ReadLine());
             Console.WriteLine("Please Input an Z Coordinate");
-            tempZ = float.Parse(Console.ReadLine());
+            float tempZ = float.Parse(Console.ReadLine());
 
             Vector3D gateNormal = new Vector3D(tempX, tempY, tempZ);
+
+            Console.WriteLine();
+            Console.WriteLine();
             //report the x, y, and z components of the space ship's velocity
+            Console.WriteLine("Old Velocity: Cartesian");
             velocity.PrintRect();
 
             //report the magnitude, heading, and pitch of the speed boost gate's normal vector
-            gateNormal.PrintmagHeadPitch();
+            Console.WriteLine("Gate MHP (Degrees)");
+            gateNormal.PrintMagHeadPitch();
 
             //reports the dot product of the two vectors
-            float dotProduct = velocity ^ gateNormal;
+            float dotProduct =  velocity ^ gateNormal;
             Console.WriteLine("Dot Product: " +  dotProduct);
 
             //report the angle between the two vectors in degrees
             float angleDifference = velocity % gateNormal;
-            Console.WriteLine("Angle Difference: " + angleDifference);
+            angleDifference = velocity.RadToDegree(angleDifference);
+            Console.WriteLine("Angle Difference: " + angleDifference + "Degrees");
 
             //reports the space ship's new velocity vector in Cartesian form
-            velocity.SetRectGivenMagHeadPitch(dotProduct, velocity.GetHeading(), velocity.GetPitch());
-            velocity.PrintRect();
+            Console.WriteLine("New Velocity: Cartesian");
+            Vector3D newVelocity = velocity* dotProduct;
+            newVelocity.PrintRect();
+            Console.WriteLine("New Velocity: MHP");
             //reports the space ship's new velocity vector in MHP form
-            velocity.PrintMagHeadPitch();
-
+            newVelocity.PrintMagHeadPitch();
+            Console.WriteLine("New Velocity: Direction Angles");
             //reports the direction angles of the space ship's new velocity vector
-            velocity.PrintDirections();
+            newVelocity.PrintDirections();
+
+            Console.ReadLine();
 
         }
     }
