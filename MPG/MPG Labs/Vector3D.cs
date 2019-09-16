@@ -62,8 +62,8 @@ namespace MPG_Labs
 
         public void SetRectGivenMagHeadPitch( float magnitude, float heading, float pitch)
         {
-            X = magnitude * (float)Math.Cos(heading);
-            Y = magnitude * (float)Math.Sin(heading);
+            X = magnitude * (float)Math.Cos(heading) * (float) Math.Cos(pitch);
+            Y = magnitude * (float)Math.Sin(heading) * (float) Math.Cos(pitch);
             Z = magnitude * (float)Math.Sin(pitch);
         }
          
@@ -112,7 +112,7 @@ namespace MPG_Labs
         //Difference of Two Angles 
         public static float operator %(Vector3D U, Vector3D V)
         {
-            return U.GetHeading() - V.GetHeading();
+            return (float) Math.Acos((U ^ V) / (U.GetMag() * V.GetMag()));
         }
 
         //Scales a specified Vector by a designated scaling amount.  Operator Overload for easy use.
@@ -195,14 +195,19 @@ namespace MPG_Labs
         public float GetHeading()
         {
             if (Y >= 0)
-                return (float)Math.Acos(X / Math.Sqrt(X * X + Y * Y));
+            {
+                if (X * X + Y * Y == 0)
+                    return 0;
+                else
+                    return (float)Math.Acos(X / Math.Sqrt(X * X + Y * Y));
+            }                
             else
                 return 2 * (float)Math.PI - (float)Math.Acos(X / Math.Sqrt(X * X + Y * Y));
         }
 
         public float GetPitch()
         {
-            return (float) Math.Sin(Z / GetMag());
+            return (float) Math.Asin(Z / GetMag());
         }
 
         public float GetAlpha()        

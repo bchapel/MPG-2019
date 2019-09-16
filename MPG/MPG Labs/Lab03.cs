@@ -47,6 +47,7 @@ namespace MPG_Labs
             //report the magnitude, heading, and pitch of the speed boost gate's normal vector
             Console.WriteLine("Gate MHP (Degrees)");
             gateNormal.PrintMagHeadPitch();
+            Console.WriteLine("Pitch Radian: " + gateNormal.GetPitch());
 
             //reports the dot product of the two vectors
             float dotProduct =  velocity ^ gateNormal;
@@ -54,8 +55,9 @@ namespace MPG_Labs
 
             //report the angle between the two vectors in degrees
             float angleDifference = velocity % gateNormal;
-            angleDifference = velocity.RadToDegree(angleDifference);
-            Console.WriteLine("Angle Difference: " + angleDifference + "Degrees");
+            float angleDifferenceDeg = velocity.RadToDegree(angleDifference);
+            Console.WriteLine("Angle Difference: " + angleDifferenceDeg + "Degrees");
+            Console.WriteLine("Angle Difference: " + angleDifference + "Radians");
 
             //reports the space ship's new velocity vector in Cartesian form
             Console.WriteLine("New Velocity: Cartesian");
@@ -64,6 +66,7 @@ namespace MPG_Labs
             Console.WriteLine("New Velocity: MHP");
             //reports the space ship's new velocity vector in MHP form
             newVelocity.PrintMagHeadPitch();
+            Console.WriteLine("Pitch Radian: " + newVelocity.GetPitch());
             Console.WriteLine("New Velocity: Direction Angles");
             //reports the direction angles of the space ship's new velocity vector
             newVelocity.PrintDirections();
