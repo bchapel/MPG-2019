@@ -8,8 +8,8 @@ namespace MPG_Labs
     {
         /* Vector 3D class
           Author: Bowen Walker Chapel
-          Version: 1.0
-          Date: August 26 2019.
+          Version: 1.1
+          Date: September 16 2019.
           Summary: 
          
              */
@@ -53,6 +53,19 @@ namespace MPG_Labs
             Z = inputZ;
             W = inputW;
         }
+        public void SetRectGivenPolar(float magnitude, float heading)
+        {
+            X = (float) magnitude * Math.Cos(heading);
+            Y = (float) magnitude * Math.Sin(heading);
+        }
+
+        public void SetRectGivenMagHeadPitch( float magnitude, float heading, float pitch)
+        {
+            X = (float) magnitude * Math.Cos(heading);
+            Y = (float) magnitude * Math.Sin(heading);
+            Z = (float) magnitude * Math.Sin(pitch);
+        }
+         
         //Print the X, Y, and Z coordinate of this vector.
         public void PrintRect()
         {
@@ -65,27 +78,49 @@ namespace MPG_Labs
             float magnitude = GetMag();
             Console.WriteLine("Magnitude: " + magnitude);
         }
-        //Add two vectors.  Operator overload for easy use.
-        public static Vector3D operator +(Vector3D one, Vector3D two)
+
+        public void PrintPolar()
         {
-            Vector3D sum = new Vector3D(one.X + two.X, one.Y + two.Y, one.Z + two.Z);
-            return sum;
+        Console.WriteLine("Magnitude: " + GetMag() + " @ Angle: " + Math.Tan(X/Y));
+        }
+        public void PrintmagHeadPitch()
+        {
+            Console.WriteLine("Magnitude: " + GetMag() + ", Heading: " + GetHeading() + ", Pitch: " + GetPitch());
+        }
+        public void PrintDirections()
+        {
+            Console.WriteLine("Alpha: " + GetAlpha() + ", Beta: " + GetBeta() + ", Gamma: "+ GetGamma());
+        }
+        //Add two vectors.  Operator overload for easy use.
+        public static Vector3D operator +(Vector3D U, Vector3D V)
+        {
+            return (U.X + V.X, U.Y + V.Y, U.Z + V.Z);
         }
 
         //Subtract two vectors. Operator Overload for easy use.
-        public static Vector3D operator -(Vector3D one, Vector3D two)
+        public static Vector3D operator -(Vector3D U, Vector3D V)
         {
-            Vector3D difference = new Vector3D(one.X - two.X, one.Y - two.Y, one.Z - two.Z);
-            return difference;
+            return (U.X - V.X, U.Y - V.Y, U.Z - V.Z);
+        }
+        //Dot Product of two vectors
+        public static Vector3D operator ^(Vector3D U, Vector3D V)
+        {
+            return (U.X * V.X) + (U.Y * V.Y) + (U.Z * V.Z);
+        }
+
+        //Difference of Two Angles 
+        public static float operator %(Vector3D U, Vector3D V)
+        {
+            return U.GetHeading() - V.GetHeading();
         }
 
         //Scales a specified Vector by a designated scaling amount.  Operator Overload for easy use.
-        public static Vector3D operator *(Vector3D one, float scale)
+        public static Vector3D operator *(Vector3D U, float scale)
         {
-            one.X *= scale;
-            one.Y *= scale;
-            one.Z *= scale;
-            return one;
+            U.X *= scale;
+            U.Y *= scale;
+            U.Z *= scale;
+            return U;
         }
         //Normalizes the specified Vector.
         public static Vector3D operator !(Vector3D input)
@@ -154,6 +189,38 @@ namespace MPG_Labs
                 Console.WriteLine("ERROR: Output is Zero.  Is this a Zero vector?");
                 return 0;
             }
+        }
+
+        public float GetHeading()
+        {
+            return (float) Math.Cos(X/Math.Sqrt(X*X + Y*Y));
+        }
+
+        public float GetPitch()
+        {
+            return (float) Math.Sin(Z / GetMag());
+        }
+
+        public float GetAlpha()        
+        {
+            return (float)Math.Acos(X/! this);
+        }
+        public float GetBeta()
+        {
+            return (float)Math.Acos(X/ !this);
+        }
+        public float GetGamma()
+        {
+            return(float)Math.Acos(X/ !this);
+        }
+
+        public float DegreeToRad(float Degrees)
+        {
+            return Degrees * (float) Math.Pi/180;
+        }
+        public float RadToDegree(float Radians)
+        {
+            return Radians * 180/(float) Math.Pi;
         }
 
     }

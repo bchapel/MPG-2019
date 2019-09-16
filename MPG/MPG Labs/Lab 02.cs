@@ -7,6 +7,13 @@ namespace MPG_Labs
 {
     class Lab_02
     {
+
+        /*  Author: Bowen Chapel
+            Date:
+            Summary:
+
+        */
+
         static void Main(string[] args)
         {
             float elapsedTime = 0;
