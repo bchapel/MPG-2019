@@ -79,15 +79,17 @@ namespace MPG_Labs
             float magnitude = GetMag();
             Console.WriteLine("Magnitude: " + magnitude);
         }
-
+        //Prints the object's magnitude and heading - angle in degrees.
         public void PrintPolar()
         {
-        Console.WriteLine("Magnitude: " + GetMag() + " @ Angle: " + Math.Tan(X/Y));
+        Console.WriteLine("Magnitude: " + GetMag() + " @ Angle: " + RadToDegree(Math.Tan(X/Y)));
         }
+        //Pritns the object's Magnitude, Heading, and Pitch.  Angles are in degrees.
         public void PrintMagHeadPitch()
         {
             Console.WriteLine("Magnitude: " + GetMag() + ", Heading: " + RadToDegree(GetHeading()) + " Degrees, Pitch: " + RadToDegree(GetPitch()) + " Degrees");
         }
+        //Prints the object's Alpha, Beta, and Gamma directions - Angles are in degrees.
         public void PrintDirections()
         {
             Console.WriteLine("Alpha: " + RadToDegree(GetAlpha()) + ", Beta: " + RadToDegree(GetBeta()) + ", Gamma: "+ RadToDegree(GetGamma()));
@@ -130,7 +132,6 @@ namespace MPG_Labs
             {
                 Console.WriteLine("ERROR: DIVIDE BY ZERO ERROR. RETURNING VALUE OF ZERO INSTEAD");
                 return input * 0;
-                //Write an error log here.
             }
             else
             {
@@ -192,12 +193,17 @@ namespace MPG_Labs
             }
         }
 
+        //Returns the Heading angle, in radians, of the Vector.
+        //Will return a zero, and inform user, to avoid a divide by zero error.
         public float GetHeading()
         {
             if (Y >= 0)
             {
                 if (X * X + Y * Y == 0)
+                    {
+                    Console.WriteLine("ERROR: Divide by ZERO");
                     return 0;
+                    }
                 else
                     return (float)Math.Acos(X / Math.Sqrt(X * X + Y * Y));
             }                
@@ -205,28 +211,42 @@ namespace MPG_Labs
                 return 2 * (float)Math.PI - (float)Math.Acos(X / Math.Sqrt(X * X + Y * Y));
         }
 
+        //Returns the Pitch angle, in radians, of the Vector.
+        //Will return a zero, and inform user, to avoid a divide by zero error.
         public float GetPitch()
         {
+            if (GetMag() != 0)
             return (float) Math.Asin(Z / GetMag());
+            else
+                {
+                Console.WriteLine("ERROR: Divide by ZERO");
+                return 0;
+                }
         }
 
+        //Returns the Alpha direction angle, in radians, of the Vector.
         public float GetAlpha()        
         {
             return (float)Math.Acos(X/this.GetMag());
         }
+        //Returns the Beta direction angle, in radians, of the Vector.
         public float GetBeta()
         {
             return (float)Math.Acos(Y/ this.GetMag());
         }
+        //Returns the Gamma direction angle, in radians, of the Vector.
         public float GetGamma()
         {
             return(float)Math.Acos(Z/this.GetMag());
         }
 
+        //Converts an input angle, in Degrees, to Radians.
         public float DegreeToRad(float Degrees)
         {
             return Degrees * (float) Math.PI/180;
         }
+
+        //Converts an input angle, in Degrees, to Radians.
         public float RadToDegree(float Radians)
         {
             return Radians * 180/(float) Math.PI;
