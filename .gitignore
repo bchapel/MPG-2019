@@ -34,3 +34,18 @@ $RECYCLE.BIN/
 *.cache
 MPG/MPG Labs/obj/Debug/netcoreapp2.2/MPG Labs.assets.cache
 *.cache
+*.dll
+*.targets
+*.json
+*.props
+*.json
+*.cache
+*.pdb
+*.dll
+*.cache
+*.txt
+*.cache
+*.cache
+*.json
+*.dll
+MPG/.vs/MPG Labs/v16/.suo
