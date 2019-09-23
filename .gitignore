@@ -21,3 +21,16 @@ $RECYCLE.BIN/
 # =========================
 # Operating System Files
 # =========================
+*.props
+*.targets
+*.json
+*.json
+*.cache
+*.cache
+*.cache
+*.cache
+*.ide-wal
+*.ide-shm
+*.cache
+MPG/MPG Labs/obj/Debug/netcoreapp2.2/MPG Labs.assets.cache
+*.cache

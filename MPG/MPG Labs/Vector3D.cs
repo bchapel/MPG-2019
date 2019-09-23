@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MPG_Labs
-{
     class Vector3D
     {
         /* Vector 3D class
           Author: Bowen Walker Chapel
-          Version: 1.1
-          Date: September 16 2019.
-          Summary: 
-         
-             */
+          Version: 1.2
+          Date: September 20 2019.
+          Summary: Mathematical Vector.  Stores an X, Y, and Z coordinate and contains several common Vector operations.
+          There are several operator functions that allow for doing quick Vector operations against one another,
+          as well as more complex return functions.  All angle values will be returned as radians unless otherwise specified.         
+        */
 
         //Stored X, Y, Z, coordinates of this Vector, and W scalar.
         private float X;
@@ -39,7 +38,7 @@ namespace MPG_Labs
 
         }
 
-        //Set the X, Y, and Z values of the Vector via external input.
+        //Set this 2D Vector's X and Y values externally.
         public void SetRectGivenRect(float inputX, float inputY)
         {
             X = inputX;
@@ -47,26 +46,29 @@ namespace MPG_Labs
             Z = 0;
         }
 
-        //Overloaded SetRectGivenRect function, allowing for inputing a W value.
+        //Set this 3D Vector's X, Y, and Z values externally.
         public void SetRectGivenRect(float inputX, float inputY, float inputZ)
         {
             X = inputX;
             Y = inputY;
             Z = inputZ;
         }
+
+        //Set this 2D Vector's X and Y values externally via magnitude and heading.
         public void SetRectGivenPolar(float magnitude, float heading)
         {
             X =  magnitude * (float) Math.Cos(heading);
             Y =  magnitude * (float)Math.Sin(heading);
         }
 
+        //Set this 3D Vector's X, Y, and Z values externally via magnitude, heading, and pitch.
         public void SetRectGivenMagHeadPitch( float magnitude, float heading, float pitch)
         {
             X = magnitude * (float)Math.Cos(heading) * (float) Math.Cos(pitch);
             Y = magnitude * (float)Math.Sin(heading) * (float) Math.Cos(pitch);
             Z = magnitude * (float)Math.Sin(pitch);
         }
-         
+        
         //Print the X, Y, and Z coordinate of this vector.
         public void PrintRect()
         {
@@ -82,7 +84,7 @@ namespace MPG_Labs
         //Prints the object's magnitude and heading - angle in degrees.
         public void PrintPolar()
         {
-        Console.WriteLine("Magnitude: " + GetMag() + " @ Angle: " + RadToDegree(Math.Tan(X/Y)));
+        Console.WriteLine("Magnitude: " + GetMag() + " @ Angle: " + RadToDegree((float)Math.Tan(X/Y)));
         }
         //Pritns the object's Magnitude, Heading, and Pitch.  Angles are in degrees.
         public void PrintMagHeadPitch()
@@ -94,6 +96,7 @@ namespace MPG_Labs
         {
             Console.WriteLine("Alpha: " + RadToDegree(GetAlpha()) + ", Beta: " + RadToDegree(GetBeta()) + ", Gamma: "+ RadToDegree(GetGamma()));
         }
+
         //Add two vectors.  Operator overload for easy use.
         public static Vector3D operator +(Vector3D U, Vector3D V)
         {
@@ -125,6 +128,7 @@ namespace MPG_Labs
             U.Z *= scale;
             return U;
         }
+
         //Normalizes the specified Vector.
         public static Vector3D operator !(Vector3D input)
         {
@@ -141,9 +145,9 @@ namespace MPG_Labs
                 input.Z /= normal;
 
                 return input;
-            }
-            
+            }            
         }
+
         //Return the private X value.
         public float GetX()
         {
@@ -253,4 +257,3 @@ namespace MPG_Labs
         }
 
     }
-}

@@ -1,8 +1,6 @@
 ﻿using System;
 
-namespace MPG_Labs
-{
-    class Program
+    class Lab_01
     {
         /* Lab 01 Test Program
   Author: Bowen Walker Chapel
@@ -12,7 +10,7 @@ namespace MPG_Labs
 
      */
 
-        static void Lab01()
+        static void Lab_01Main()
         {
             //Temporary float values used to store user input and create two vectors.
             float tempX1;
@@ -116,8 +114,5 @@ namespace MPG_Labs
             Console.WriteLine();
             Console.WriteLine("End of Program. Press Enter to close");
             Console.ReadLine();
-
-
         }
     }
-}
