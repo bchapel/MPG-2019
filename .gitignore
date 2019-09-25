@@ -49,3 +49,8 @@ MPG/MPG Labs/obj/Debug/netcoreapp2.2/MPG Labs.assets.cache
 *.json
 *.dll
 MPG/.vs/MPG Labs/v16/.suo
+*.json
+*.dll
+*.json
+*.pdb
+*.props

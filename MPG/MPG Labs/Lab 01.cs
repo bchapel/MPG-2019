@@ -1,16 +1,18 @@
 ﻿using System;
 
+namespace MPG_Labs
+{
     class Lab_01
     {
         /* Lab 01 Test Program
-  Author: Bowen Walker Chapel
-  Version: 1.0
-  Date: August 26 2019.
-  Summary: Following Lab Procedures based on: http://jccc-mpg.wikidot.com/the-vector-class
+    Author: Bowen Walker Chapel
+    Version: 1.0
+    Date: August 26 2019.
+    Summary: Following Lab Procedures based on: http://jccc-mpg.wikidot.com/the-vector-class
 
      */
 
-        static void Lab_01Main()
+        public static void Lab_01_Main()
         {
             //Temporary float values used to store user input and create two vectors.
             float tempX1;
@@ -108,7 +110,7 @@
                 Console.WriteLine("ERROR: Can not complete operation.  Magnitude is zero");
             }
 
-            
+
             Vector1.PrintRect();
 
             Console.WriteLine();
@@ -116,3 +118,4 @@
             Console.ReadLine();
         }
     }
+}

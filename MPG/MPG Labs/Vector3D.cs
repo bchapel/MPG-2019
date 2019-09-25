@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+namespace MPG_Labs
+{
     class Vector3D
     {
         /* Vector 3D class
@@ -35,7 +37,6 @@ using System.Text;
             Y = initY;
             Z = initZ;
             W = 1;
-
         }
 
         //Set this 2D Vector's X and Y values externally.
@@ -57,18 +58,18 @@ using System.Text;
         //Set this 2D Vector's X and Y values externally via magnitude and heading.
         public void SetRectGivenPolar(float magnitude, float heading)
         {
-            X =  magnitude * (float) Math.Cos(heading);
-            Y =  magnitude * (float)Math.Sin(heading);
+            X = magnitude * (float)Math.Cos(heading);
+            Y = magnitude * (float)Math.Sin(heading);
         }
 
         //Set this 3D Vector's X, Y, and Z values externally via magnitude, heading, and pitch.
-        public void SetRectGivenMagHeadPitch( float magnitude, float heading, float pitch)
+        public void SetRectGivenMagHeadPitch(float magnitude, float heading, float pitch)
         {
-            X = magnitude * (float)Math.Cos(heading) * (float) Math.Cos(pitch);
-            Y = magnitude * (float)Math.Sin(heading) * (float) Math.Cos(pitch);
+            X = magnitude * (float)Math.Cos(heading) * (float)Math.Cos(pitch);
+            Y = magnitude * (float)Math.Sin(heading) * (float)Math.Cos(pitch);
             Z = magnitude * (float)Math.Sin(pitch);
         }
-        
+
         //Print the X, Y, and Z coordinate of this vector.
         public void PrintRect()
         {
@@ -84,7 +85,7 @@ using System.Text;
         //Prints the object's magnitude and heading - angle in degrees.
         public void PrintPolar()
         {
-        Console.WriteLine("Magnitude: " + GetMag() + " @ Angle: " + RadToDegree((float)Math.Tan(X/Y)));
+            Console.WriteLine("Magnitude: " + GetMag() + " @ Angle: " + RadToDegree((float)Math.Tan(X / Y)));
         }
         //Pritns the object's Magnitude, Heading, and Pitch.  Angles are in degrees.
         public void PrintMagHeadPitch()
@@ -94,7 +95,7 @@ using System.Text;
         //Prints the object's Alpha, Beta, and Gamma directions - Angles are in degrees.
         public void PrintDirections()
         {
-            Console.WriteLine("Alpha: " + RadToDegree(GetAlpha()) + ", Beta: " + RadToDegree(GetBeta()) + ", Gamma: "+ RadToDegree(GetGamma()));
+            Console.WriteLine("Alpha: " + RadToDegree(GetAlpha()) + ", Beta: " + RadToDegree(GetBeta()) + ", Gamma: " + RadToDegree(GetGamma()));
         }
 
         //Add two vectors.  Operator overload for easy use.
@@ -108,6 +109,12 @@ using System.Text;
         {
             return new Vector3D(U.X - V.X, U.Y - V.Y, U.Z - V.Z);
         }
+
+        //Cross Product of Two Vectors
+        public static Vector3D operator /(Vector3D U, Vector3D V)
+        {
+            return new Vector3D((V.Y * U.Z) - (U.Y * V.Z), -((V.X * U.Z) - (U.X * V.Z)), (V.X * U.Y) - (U.X * V.Y));
+        }
         //Dot Product of two vectors
         public static float operator ^(Vector3D U, Vector3D V)
         {
@@ -117,7 +124,7 @@ using System.Text;
         //Difference of Two Angles 
         public static float operator %(Vector3D U, Vector3D V)
         {
-            return (float) Math.Acos((U ^ V) / (U.GetMag() * V.GetMag()));
+            return (float)Math.Acos((U ^ V) / (U.GetMag() * V.GetMag()));
         }
 
         //Scales a specified Vector by a designated scaling amount.  Operator Overload for easy use.
@@ -128,7 +135,6 @@ using System.Text;
             U.Z *= scale;
             return U;
         }
-
         //Normalizes the specified Vector.
         public static Vector3D operator !(Vector3D input)
         {
@@ -145,7 +151,7 @@ using System.Text;
                 input.Z /= normal;
 
                 return input;
-            }            
+            }
         }
 
         //Return the private X value.
@@ -201,18 +207,26 @@ using System.Text;
         //Will return a zero, and inform user, to avoid a divide by zero error.
         public float GetHeading()
         {
-            if (Y >= 0)
+            if (X * X + Y * Y == 0)
             {
-                if (X * X + Y * Y == 0)
-                    {
-                    Console.WriteLine("ERROR: Divide by ZERO");
-                    return 0;
-                    }
-                else
-                    return (float)Math.Acos(X / Math.Sqrt(X * X + Y * Y));
-            }                
+                Console.WriteLine("ERROR: Divide by ZERO");
+                return 0;
+            }
             else
-                return 2 * (float)Math.PI - (float)Math.Acos(X / Math.Sqrt(X * X + Y * Y));
+            {
+                if (Y >= 0)
+                {
+                    Console.WriteLine("Test Data: "+ X / Math.Sqrt(X * X + Y * Y));
+                    return (float)Math.Acos(X / Math.Sqrt(X * X + Y * Y));
+                }
+
+                else
+                {
+                    Console.WriteLine("Compensating for negative Y");
+                    return 2 * (float)Math.PI - (float)Math.Acos(X / Math.Sqrt(X * X + Y * Y));
+                }
+
+            }
         }
 
         //Returns the Pitch angle, in radians, of the Vector.
@@ -220,40 +234,40 @@ using System.Text;
         public float GetPitch()
         {
             if (GetMag() != 0)
-            return (float) Math.Asin(Z / GetMag());
+                return (float)Math.Asin(Z / GetMag());
             else
-                {
+            {
                 Console.WriteLine("ERROR: Divide by ZERO");
                 return 0;
-                }
+            }
         }
 
         //Returns the Alpha direction angle, in radians, of the Vector.
-        public float GetAlpha()        
+        public float GetAlpha()
         {
-            return (float)Math.Acos(X/this.GetMag());
+            return (float)Math.Acos(X / this.GetMag());
         }
         //Returns the Beta direction angle, in radians, of the Vector.
         public float GetBeta()
         {
-            return (float)Math.Acos(Y/ this.GetMag());
+            return (float)Math.Acos(Y / this.GetMag());
         }
         //Returns the Gamma direction angle, in radians, of the Vector.
         public float GetGamma()
         {
-            return(float)Math.Acos(Z/this.GetMag());
+            return (float)Math.Acos(Z / this.GetMag());
         }
 
         //Converts an input angle, in Degrees, to Radians.
         public float DegreeToRad(float Degrees)
         {
-            return Degrees * (float) Math.PI/180;
+            return Degrees * (float)Math.PI / 180;
         }
 
         //Converts an input angle, in Degrees, to Radians.
         public float RadToDegree(float Radians)
         {
-            return Radians * 180/(float) Math.PI;
+            return Radians * 180 / (float)Math.PI;
         }
-
     }
+}

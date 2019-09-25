@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
+namespace MPG_Labs
+{
     class Lab_02
     {
 
@@ -14,7 +16,7 @@ using System.IO;
 
         */
 
-        static void Main(string[] args)
+        private static void Lab_02_Main()
         {
             float elapsedTime = 0;                  //seconds
             float timeStep = 0.1f;                  //seconds
@@ -169,3 +171,4 @@ using System.IO;
             }
         }
     }
+}

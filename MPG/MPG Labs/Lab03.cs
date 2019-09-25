@@ -1,5 +1,6 @@
 ﻿using System;
-
+namespace MPG_Labs
+{
     public class Lab03
     {
         /*  Author: Bowen Chapel
@@ -12,7 +13,7 @@
          - 1.1 - Added comments, summary, and formatting for readability.
 
     */
-        public static void Lab03Main()
+        private static void Main()
         {
 
             //Asks the user to enter the magnitude, heading, and pitch of the space ship's velocity
@@ -54,8 +55,8 @@
 
             Console.WriteLine();        //Spacing for Readability.
             //reports the dot product of the two vectors
-            float dotProduct =  velocity ^ gateNormal;
-            Console.WriteLine("Dot Product: " +  dotProduct);                       //Calculating dot product of the velocity and gateNormal via custom operator
+            float dotProduct = velocity ^ gateNormal;
+            Console.WriteLine("Dot Product: " + dotProduct);                       //Calculating dot product of the velocity and gateNormal via custom operator
 
             //report the angle between the two vectors in degrees
             float angleDifference = velocity % gateNormal;                          //Computing angle difference of two vectors via custom Operator
@@ -64,7 +65,7 @@
 
             //reports the space ship's new velocity vector in Cartesian form
             Console.WriteLine("New Velocity: Cartesian");
-            Vector3D newVelocity = velocity* dotProduct;
+            Vector3D newVelocity = velocity * dotProduct;
             newVelocity.PrintRect();
 
             Console.WriteLine();        //Spacing for Readability.
@@ -80,3 +81,4 @@
             Console.ReadLine();                                                     //Giving User opportunity to read the results before program closes.
         }
     }
+}
