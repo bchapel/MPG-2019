@@ -51,6 +51,7 @@ namespace MPG_Labs
             Vector3D velocity = new Vector3D();
             Vector3D newVelocity = new Vector3D();
             Vector3D weight = new Vector3D();
+            Vector3D windSpeed = new Vector3D();
 
             //Create Vector for Thrust? 
             Vector3D thruster = new Vector3D();
@@ -58,12 +59,12 @@ namespace MPG_Labs
             weight.SetRectGivenRect(0, -gravity * mass, 0);
             thruster.SetRectGivenMagHeadPitch(10, thruster.DegreeToRad(23), thruster.DegreeToRad(62));
 
-            Vector3D windForce = velocity * -airResistance;
+            Vector3D windForce = (velocity - windSpeed) * -airResistance;
 
             while (newPosition.GetY() > 0)
             {
                 //R→new = R→old + V→old Δt + ½ a→old Δt^2
-                newPosition = position + (velocity * timeStep) / ((acceleration * 0.5f) * (timeStep * timeStep));
+                newPosition = position + (velocity * timeStep) + ((acceleration * 0.5f) * (timeStep * timeStep));
                 //position.X = newPosition.GetX() + velocity.X* time * 1 / 2 acceleration.X* time * time;
                 //position.Y = newPosition.GetY() + velocity.Y* time * 1 / 2 acceleration.Y* time * time;
                 //position.Z = newPosition.GetZ() + velocity.Z* time * 1 / 2 acceleration.Z* time * time;
