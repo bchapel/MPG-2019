@@ -269,5 +269,35 @@ namespace MPG_Labs
         {
             return Radians * 180 / (float)Math.PI;
         }
+
+        public Vector3D ParaProjection(Vector3D V, Vector3D U)
+        {
+            float dotProduct = V ^ U;
+            return V * dotProduct;
+        }
+
+        public Vector3D PerpProjection (Vector3D V, Vector3D U)
+        {
+            return U - V.ParaProjection(V, U);
+        }
+
+        public Vector3D Line3DClosestPoint(Vector3D P, Vector3D Pvector, Vector3D Q)
+        {
+            Vector3D PQ = Q - P;
+            Vector3D para = P.ParaProjection(PQ, Pvector);
+            return P + para;
+
+        }
+
+        public Vector3D PlaneEquation(Vector3D pointOne, Vector3D pointTwo, Vector3D pointThree)
+        {
+            Vector3D V = pointTwo - pointOne;
+            Vector3D U = pointThree - pointOne;
+
+            Vector3D Normal = V / U;
+
+            //Not finished
+
+        }
     }
 }
