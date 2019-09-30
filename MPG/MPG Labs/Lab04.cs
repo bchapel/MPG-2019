@@ -51,15 +51,9 @@ namespace MPG_Labs
                 Console.ReadLine();
             }
 
-            //Velocity Verlet /w air resistance
-            //R→new = R→old + V→old Δt + ½ a→old Δt^2
-            //a→new =  -9.8 - V→old * 0.1
-            //V→new = V→old + (a→new + a→old) * 0.5 * Δt
-            //a→old = a→new
-            //
             //Defining and setting initial values
-            float timeStep = 0.1f; //seconds
-            float elapsedTime = 0;
+            float timeStep = 0.02f; //seconds
+            float elapsedTime = 0f;
             float thrustTime = 1.0f; //seconds
 
             //Acceleration of Gravity. 
@@ -71,25 +65,11 @@ namespace MPG_Labs
             //Air resistance coefficient
             float airResistance = 0.02f;
             //Mass Coefficient - to avoid unnecessary division.
-            float massCoefficient = 1 / mass;
-            //Rocket thrust is a heading of 23 degrees and a pitch of 62 degrees.
-            //F⃗ net=∑1nF⃗ n=F⃗ 1+F⃗ 1+...+F⃗ n
-
-            //a⃗ =F⃗ netm.
-
-
-
-            //Process for Creation of Vectors.
-            //Create Vectors for Old Position, New Position, old Velocity, Velocity, old acceleration, and acceleration, and wind force.
-            //Rocket thrust is a heading of 23 degrees and a pitch of 62 degrees.
-            //F⃗ net=∑1nF⃗ n=F⃗ 1+F⃗ 1+...+F⃗ n
-            //fwind = airResistance* Velocity;
-
-            //a⃗ =F⃗ netm.
+            float massCoefficient = 1f / mass;
             Vector3D acceleration = new Vector3D();
             Vector3D newAcceleration = new Vector3D();
 
-            Vector3D position = new Vector3D(0, 0.2f, 0);   //Meters
+            Vector3D position = new Vector3D(0f, 0f, 0.2f);  //Meters
             Vector3D newPosition = new Vector3D();          //Meters
             Vector3D velocity = new Vector3D();             //Meters per Second
             Vector3D newVelocity = new Vector3D();          //Meters per Second
@@ -99,22 +79,23 @@ namespace MPG_Labs
             //Create Vector for Thrust? 
             Vector3D thruster = new Vector3D();
 
-            weight.SetRectGivenRect(0, -gravity * mass, 0);
-            thruster.SetRectGivenMagHeadPitch(10, thruster.DegreeToRad(23), thruster.DegreeToRad(62));
+            weight.SetRectGivenRect(0f, 0f, -gravity * mass);
+            thruster.SetRectGivenMagHeadPitch(10f, 23f, 62f);
 
-            Vector3D windForce = (velocity - windSpeed) * -airResistance;
 
-            while (newPosition.GetY() > 0 || elapsedTime < thrustTime)
+
+
+            while (position.GetZ() > 0f)
             {
+                Vector3D windForce = (velocity) * -airResistance;
                 //R→new = R→old + V→old Δt + ½ a→old Δt^2
-                newPosition = position + (velocity * timeStep) + ((acceleration * 0.5f) * (timeStep * timeStep));
+                newPosition = position + (velocity * timeStep) + (acceleration * (0.5f * timeStep * timeStep));
                 //A→new = Fnet / mass
+                //newVelocity.PrintRect();
+                newPosition.PrintRect();
                 if (elapsedTime < thrustTime)
                 {
-                    newAcceleration = (thruster + windForce + weight) * massCoefficient;
-                    Vector3D Tw = thruster - windForce;
-                    Console.WriteLine("Thrust - Windorce: ");
-                    Tw.PrintRect();
+                   newAcceleration = (thruster + windForce + weight) * massCoefficient;
                 }
                 else
                 {
@@ -127,12 +108,13 @@ namespace MPG_Labs
                 //a→old = a→new
                 acceleration = newAcceleration;
                 position = newPosition;
-                elapsedTime += timeStep;
-                
+                velocity = newVelocity;
+                elapsedTime += timeStep;                
             }
             Console.WriteLine("Rocket has crashed. Kaboom");
             Console.WriteLine("Time Elapsed: " + elapsedTime);
             Console.WriteLine("Final position of rocket");
+ 
             newPosition.PrintRect();
             Console.ReadLine();
 

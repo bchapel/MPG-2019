@@ -65,6 +65,12 @@ namespace MPG_Labs
         //Set this 3D Vector's X, Y, and Z values externally via magnitude, heading, and pitch.
         public void SetRectGivenMagHeadPitch(float magnitude, float heading, float pitch)
         {
+            if (magnitude < 0)
+                magnitude *= -1;
+
+            heading = DegreeToRad(heading);
+            pitch = DegreeToRad(pitch);
+
             X = magnitude * (float)Math.Cos(heading) * (float)Math.Cos(pitch);
             Y = magnitude * (float)Math.Sin(heading) * (float)Math.Cos(pitch);
             Z = magnitude * (float)Math.Sin(pitch);
