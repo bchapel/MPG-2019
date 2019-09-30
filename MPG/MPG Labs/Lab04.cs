@@ -8,6 +8,13 @@ namespace MPG_Labs
     {
         public static void Main()
         {
+            Lab04 test = new Lab04();
+            test.BoxTest();
+            test.RocketTest();
+        }
+
+        public void BoxTest()
+        {
             float newBoxSpeed = 0;
             float boxSpeed = 0;
             float boxAccel = 0;
@@ -50,6 +57,11 @@ namespace MPG_Labs
                 Console.WriteLine("Time until Box's halt: " + boxTime);
                 Console.ReadLine();
             }
+        }
+
+
+        public void RocketTest()
+        {
 
             //Defining and setting initial values
             float timeStep = 0.02f; //seconds
@@ -66,8 +78,7 @@ namespace MPG_Labs
             float airResistance = 0.02f;
             //Mass Coefficient - to avoid unnecessary division.
             float massCoefficient = 1f / mass;
-            Vector3D acceleration = new Vector3D();
-            Vector3D newAcceleration = new Vector3D();
+
 
             Vector3D position = new Vector3D(0f, 0f, 0.2f);  //Meters
             Vector3D newPosition = new Vector3D();          //Meters
@@ -81,21 +92,22 @@ namespace MPG_Labs
 
             weight.SetRectGivenRect(0f, 0f, -gravity * mass);
             thruster.SetRectGivenMagHeadPitch(10f, 23f, 62f);
-
-
-
+            Vector3D acceleration = (thruster + weight) * massCoefficient;
+            Vector3D newAcceleration = new Vector3D();
+            acceleration.PrintRect();
+            velocity.SetRectGivenRect(0, 0, 0);
 
             while (position.GetZ() > 0f)
             {
-                Vector3D windForce = (velocity) * -airResistance;
+
                 //R→new = R→old + V→old Δt + ½ a→old Δt^2
                 newPosition = position + (velocity * timeStep) + (acceleration * (0.5f * timeStep * timeStep));
                 //A→new = Fnet / mass
-                //newVelocity.PrintRect();
-                newPosition.PrintRect();
+                Vector3D windForce = (velocity) * -airResistance;
+
                 if (elapsedTime < thrustTime)
                 {
-                   newAcceleration = (thruster + windForce + weight) * massCoefficient;
+                    newAcceleration = (thruster + windForce + weight) * massCoefficient;
                 }
                 else
                 {
@@ -109,17 +121,17 @@ namespace MPG_Labs
                 acceleration = newAcceleration;
                 position = newPosition;
                 velocity = newVelocity;
-                elapsedTime += timeStep;                
+                elapsedTime += timeStep;
             }
             Console.WriteLine("Rocket has crashed. Kaboom");
             Console.WriteLine("Time Elapsed: " + elapsedTime);
             Console.WriteLine("Final position of rocket");
- 
+
             newPosition.PrintRect();
             Console.ReadLine();
 
 
-        }
 
+        }
     }
 }
