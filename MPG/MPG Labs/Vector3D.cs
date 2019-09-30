@@ -270,17 +270,20 @@ namespace MPG_Labs
             return Radians * 180 / (float)Math.PI;
         }
 
+        //Returns a Parallel Projection of two Vectors.
         public Vector3D ParaProjection(Vector3D V, Vector3D U)
         {
             float dotProduct = V ^ U;
             return V * dotProduct;
         }
 
+        //Returns a Parallel Projection of Two Vectors.
         public Vector3D PerpProjection (Vector3D V, Vector3D U)
         {
             return U - V.ParaProjection(V, U);
         }
 
+        //Returns the closest point point on a line to a specified Vector.
         public Vector3D Line3DClosestPoint(Vector3D P, Vector3D Pvector, Vector3D Q)
         {
             Vector3D PQ = Q - P;
@@ -289,15 +292,21 @@ namespace MPG_Labs
 
         }
 
+        //Returns the 
         public Vector3D PlaneEquation(Vector3D pointOne, Vector3D pointTwo, Vector3D pointThree)
         {
-            Vector3D V = pointTwo - pointOne;
-            Vector3D U = pointThree - pointOne;
+            Vector3D U = pointTwo - pointOne;   
+            Vector3D V = pointThree - pointOne;
 
-            Vector3D Normal = V / U;
+            Vector3D Normal = U / V;
 
-            //Not finished
+            if (Normal.X < 0 || Normal.Y < 0 || Normal.Z < 0)
+            {
+                Normal.SetRectGivenRect((float)Math.Sqrt(Normal.X * Normal.X),
+                (float)Math.Sqrt(Normal.Y * Normal.Y), (float)Math.Sqrt(Normal.Z * Normal.Z));
+            }
 
+            return Normal;
         }
     }
 }
