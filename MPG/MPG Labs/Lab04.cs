@@ -6,7 +6,7 @@ namespace MPG_Labs
 {
     class Lab04
     {
-        public static void Main()
+        public static void MainLab04()
         {
             Lab04 test = new Lab04();
             test.BoxTest();
