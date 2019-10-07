@@ -23,25 +23,27 @@ namespace MPG_Labs
             float boxElapsedTime = 0; //Seconds
             float boxTimeStep = 0.05f;//Seconds
             float boxKE = 0f;
+            float newKE = 0f;
             float boxPE = 0f;
             float boxGravity = 9.8f;
 
-            Console.WriteLine("Please Input an initial velocity. (M/S");
+            Console.WriteLine("Please Input an initial velocity. (M/S)");
             boxVelocity = float.Parse(Console.ReadLine());
 
             Console.WriteLine("Please input what percentage of Kinetic Energy is lost per time step (" + boxTimeStep + " seconds)");
             boxKElossStep = float.Parse(Console.ReadLine());
 
             boxKE = 0.5f * boxMass * boxVelocity * boxVelocity;
+            Console.WriteLine("Initial Box KE: " + boxKE);
 
 
             while (boxY > 0)
             {
-                boxKE *= -boxKElossStep;
+                boxKE = (0.5f * boxMass * boxVelocity * boxVelocity) * (1 - (boxKElossStep * 0.01f));
                 boxPE = boxMass * boxGravity * boxY;
                 boxVelocity = (float)Math.Sqrt(boxKE / 0.5f * boxMass);
 
-                boxY = -0.32219f * boxElapsedTime + 10; //obvioulsy change.
+                boxY = -0.32219f * boxElapsedTime + 10;
                 boxElapsedTime += boxTimeStep;
 
                 Console.WriteLine("Current KE: " + boxKE);
@@ -52,6 +54,7 @@ namespace MPG_Labs
             }
 
             Console.WriteLine("Box hit floor");
+            Console.WriteLine("Time: " + boxElapsedTime);
 
         }
 
