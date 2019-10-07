@@ -63,14 +63,14 @@ namespace MPG_Labs
         public void TwoDMotion()
         {
             Vector3D velocty = new Vector3D();
-            Vector3D position = new Vector3D(0, 6778, 0);
+            Vector3D position = new Vector3D(0, 6778000, 0);
             Vector3D acceleration = new Vector3D();
 
 
             Vector3D Earth = new Vector3D();
             Vector3D gravity = new Vector3D();
 
-            float radius = 6378;
+            float radius = 6378000;
             float earthMass = 5.98e24f; //kg
             float shipMass = 225; //kg
             float shipElapsedTime = 0;
@@ -94,19 +94,25 @@ namespace MPG_Labs
 
             while (distance > radius + 100 || shipElapsedTime < 36000)
             {
+                /// THIS COMMENT IS FROM AN EXAMPLE IN CLASS
+                //Force = Delta PE/DeltaX X^  - DeltaPE/deltaY Y^
+                //THEN USE an epsX + and - left and right of
+                //5000m works as a good epsilon.
+                //force.X = -(PE(r+epsX) - PE (r-epsX))/(zEps)
+
+
                 //position
                 Vector3D newPosition = position + velocty * shipTimeStep + (acceleration * 0.5f);
-                gravity = Gravitycalc(newPosition, Earth, shipMass, earthMass);
+                gravity = Gravitycalc(Earth, newPosition, earthMass, shipMass);
                 //acceleration
                 Vector3D newAcceleration = gravity * massCoefficient;
                 Console.WriteLine("Acceleration: ");
                 newAcceleration.PrintRect();
-                //veloctiy...
 
                 Vector3D newVelocity = velocty + (newAcceleration + acceleration) * 0.5f * shipTimeStep;
 
-                shipPE = -bigG * (shipMass * earthMass) / radius;
-                shipKE = 0.5f * shipMass * velocty.GetMagSq();
+                shipPE = -bigG * (shipMass * earthMass) / distance;
+                shipKE = 0.5f * shipMass * newVelocity.GetMagSq();
                 shipSpeed = (float)Math.Sqrt(shipKE / 0.5f * shipMass);
 
 
@@ -120,15 +126,18 @@ namespace MPG_Labs
 
                 Console.WriteLine("KE: " + shipKE);
                 Console.WriteLine("PE: " + shipPE);
+                Console.WriteLine("Total E: " + (shipKE + shipPE));
                 Console.WriteLine("Position");
                 newPosition.PrintRect();
-                Console.WriteLine("Altitude: " + (distance - radius));
+
+                Console.WriteLine("Ship Speed: " + shipSpeed);                
+                Console.WriteLine("Altitude: " + (distance - radius) * 0.001 + " km");
 
                 Console.WriteLine();
                    
             }
 
-            if (distance <= radius + 100)
+            if (distance <= radius + 100000)
             {
                 Console.WriteLine("Ship Crashed: Altitude Too Low");
             }
@@ -141,10 +150,15 @@ namespace MPG_Labs
         Vector3D Gravitycalc(Vector3D obj1, Vector3D obj2, float mass1, float mass2)
         {
             Vector3D obj12 = obj2 - obj1;
-            float invobj12Mag = 1.0f / obj12.GetMagSq();
-            Vector3D Fgrav = !obj12 * ((6.67300e-11f) * mass1 * mass2) * invobj12Mag;
+            float invobj12Mag = 1.0f / obj12.GetMag();
+            Vector3D Fgrav = !obj12 * ((6.67300e-11f) * mass1 * mass2) * invobj12Mag * invobj12Mag;
 
             return Fgrav;
+        }
+
+        float PE (Vector3D r)
+        {
+
         }
     }
 
