@@ -6,10 +6,12 @@ namespace MPG_Labs
 {
     class Lab05
     {
+
+        //http://jccc-mpg.wikidot.com/work-and-energy
         static void Main()
         {
             Lab05 test = new Lab05();
-            test.OneDMotion();
+            //test.OneDMotion();
             test.TwoDMotion();
 
         }
@@ -60,7 +62,75 @@ namespace MPG_Labs
 
         public void TwoDMotion()
         {
+            Vector3D velocty = new Vector3D();
+            Vector3D position = new Vector3D();
+            Vector3D acceleration = new Vector3D();
 
+
+            Vector3D Earth = new Vector3D();
+            Vector3D gravity = new Vector3D();
+
+            float radius = 6378;
+            float earthMass = 5.98e24f; //kg
+            float shipMass = 225; //kg
+            float shipElapsedTime = 0;
+            float shipTimeStep = 10; //seconds
+            float bigG = 6.67e-11f;
+
+            float shipKE = 0f;
+            float shipPE = 0f;
+            float shipSpeed = 0f;
+            float massCoefficient = 1 / shipMass;
+
+            Console.WriteLine("Please input an initial speed");
+            float tempX = float.Parse(Console.ReadLine());
+            velocty.SetRectGivenRect(tempX, 0);
+
+            //Make a function for this in Vector3D class.
+            float distance = (float)Math.Sqrt( ((position.GetX() - Earth.GetX()) * position.GetX() - Earth.GetX())
+                + ((position.GetY() - Earth.GetY()) * position.GetY() - Earth.GetY()) + ((position.GetZ() - Earth.GetZ()) * position.GetZ() - Earth.GetZ()));
+
+            while (distance > radius + 100 || shipElapsedTime < 36000)
+            {
+                //position
+                Vector3D newPosition = position + velocty * shipTimeStep + (acceleration * 0.5f);
+                gravity = newPosition - Earth;
+                //acceleration
+                Vector3D newAcceleration = gravity * massCoefficient;
+                //veloctiy...
+
+                Vector3D newVelocity = velocty + (newAcceleration + acceleration) * 0.5f * shipTimeStep;
+
+                shipPE = -bigG * (shipMass * earthMass) / radius;
+                shipKE = 0.5f * shipMass * velocty.GetMagSq();
+                shipSpeed = (float)Math.Sqrt(shipKE / 0.5f * shipMass);
+
+
+                acceleration = newAcceleration;
+                position = newPosition;
+                velocty = newVelocity;
+                shipElapsedTime += shipTimeStep;
+            }
+
+            if (distance <= radius + 100)
+            {
+                Console.WriteLine("Ship Crashed: Altitude Too Low");
+            }
+            else if (shipElapsedTime > 36000)
+            {
+                Console.WriteLine("Time Limit Elapsed: Orbit Stableish?");
+            }
         }
     }
 }
+
+
+//newPosition = oldPositon + oldVelocity* timeStep + 1 / 2 * oldAcceleration * (timeStep* timeStep);
+//                newAcceleration = -9.8f - (0.1f * newVelocity);
+//                newVelocity = oldVelocity + (newAcceleration + oldAcceleration) * 0.5f * timeStep;
+
+////Housekeeping.
+//elapsedTime += timeStep;            //Updating elapsedTime with change in time
+//                oldAcceleration = newAcceleration; //Updating old acceleration to new acceleration
+//                oldPositon = newPosition;           //updating old position to new position
+//                oldVelocity = newVelocity;          //updating old velocity to new velocity.
