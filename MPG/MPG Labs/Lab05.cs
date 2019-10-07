@@ -63,7 +63,7 @@ namespace MPG_Labs
         public void TwoDMotion()
         {
             Vector3D velocty = new Vector3D();
-            Vector3D position = new Vector3D();
+            Vector3D position = new Vector3D(0, 6778, 0);
             Vector3D acceleration = new Vector3D();
 
 
@@ -89,14 +89,18 @@ namespace MPG_Labs
             //Make a function for this in Vector3D class.
             float distance = (float)Math.Sqrt( ((position.GetX() - Earth.GetX()) * position.GetX() - Earth.GetX())
                 + ((position.GetY() - Earth.GetY()) * position.GetY() - Earth.GetY()) + ((position.GetZ() - Earth.GetZ()) * position.GetZ() - Earth.GetZ()));
+            Console.WriteLine("Initial Altitude: " + (distance - radius));
+
 
             while (distance > radius + 100 || shipElapsedTime < 36000)
             {
                 //position
                 Vector3D newPosition = position + velocty * shipTimeStep + (acceleration * 0.5f);
-                gravity = newPosition - Earth;
+                gravity = Gravitycalc(newPosition, Earth, shipMass, earthMass);
                 //acceleration
                 Vector3D newAcceleration = gravity * massCoefficient;
+                Console.WriteLine("Acceleration: ");
+                newAcceleration.PrintRect();
                 //veloctiy...
 
                 Vector3D newVelocity = velocty + (newAcceleration + acceleration) * 0.5f * shipTimeStep;
@@ -110,6 +114,18 @@ namespace MPG_Labs
                 position = newPosition;
                 velocty = newVelocity;
                 shipElapsedTime += shipTimeStep;
+
+                distance = (float)Math.Sqrt(((position.GetX() - Earth.GetX()) * position.GetX() - Earth.GetX())
+                + ((position.GetY() - Earth.GetY()) * position.GetY() - Earth.GetY()) + ((position.GetZ() - Earth.GetZ()) * position.GetZ() - Earth.GetZ()));
+
+                Console.WriteLine("KE: " + shipKE);
+                Console.WriteLine("PE: " + shipPE);
+                Console.WriteLine("Position");
+                newPosition.PrintRect();
+                Console.WriteLine("Altitude: " + (distance - radius));
+
+                Console.WriteLine();
+                   
             }
 
             if (distance <= radius + 100)
@@ -121,7 +137,18 @@ namespace MPG_Labs
                 Console.WriteLine("Time Limit Elapsed: Orbit Stableish?");
             }
         }
+
+        Vector3D Gravitycalc(Vector3D obj1, Vector3D obj2, float mass1, float mass2)
+        {
+            Vector3D obj12 = obj2 - obj1;
+            float invobj12Mag = 1.0f / obj12.GetMagSq();
+            Vector3D Fgrav = !obj12 * ((6.67300e-11f) * mass1 * mass2) * invobj12Mag;
+
+            return Fgrav;
+        }
     }
+
+
 }
 
 
