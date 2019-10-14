@@ -314,5 +314,37 @@ namespace MPG_Labs
 
             return Normal;
         }
+
+        public float DotProduct4D(Vector3D input)
+        {
+
+            return (X * input.X) + (Y * input.Y) + (Z * input.Z) + (W * input.W);
+        }
+
+        public Vector3D MatrixTranslation(Vector3D input)
+        {
+            Vector3D output = new Vector3D(X + input.X, Y + input.Y, Z + input.Z);
+            return output;
+        }
+
+        public Vector3D MatrixRawScale(Vector3D input)
+        {
+            Vector3D output = new Vector3D(X * input.X, Y * input.Y, Z * input.Z);
+            return output;
+        }
+
+        public Vector3D MatrixCenterScale(Vector3D scale, Vector3D center)
+        {
+            Vector3D output = new Vector3D
+            ((((X - center.X) * scale.X) + center.X),
+            (((Y - center.Y) * scale.Y) + center.Y),
+            (((Z - center.Z) * scale.Z) + center.Z));
+
+            return output;
+        }
+
+
+
+
     }
 }
