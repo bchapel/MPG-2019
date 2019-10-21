@@ -119,7 +119,7 @@ namespace MPG_Labs
         //Cross Product of Two Vectors
         public static Vector3D operator /(Vector3D U, Vector3D V)
         {
-            return new Vector3D((V.Y * U.Z) - (U.Y * V.Z), -((V.X * U.Z) - (U.X * V.Z)), (V.X * U.Y) - (U.X * V.Y));
+            return new Vector3D((U.Y * V.Z) - (V.Y * U.Z), -((U.X * V.Z) - (V.X * U.Z)), (U.X * V.Y) - (V.X * U.Y));
         }
         //Dot Product of two vectors
         public static float operator ^(Vector3D U, Vector3D V)
@@ -277,10 +277,12 @@ namespace MPG_Labs
         }
 
         //Returns a Parallel Projection of two Vectors.
-        public Vector3D ParaProjection(Vector3D V, Vector3D U)
+        public Vector3D ParaProjection(Vector3D U, Vector3D V)
         {
             float dotProduct = V ^ U;
-            return V * dotProduct;
+
+            float vMag = V.GetMagSq();
+            return V * (dotProduct / vMag);
         }
 
         //Returns a Pepindicular Projection of Two Vectors.
@@ -301,10 +303,14 @@ namespace MPG_Labs
         //Returns the 
         public Vector3D PlaneEquation(Vector3D pointOne, Vector3D pointTwo, Vector3D pointThree)
         {
-            Vector3D U = pointTwo - pointOne;   
-            Vector3D V = pointThree - pointOne;
+            Vector3D V1 = pointTwo - pointOne;
+            V1.PrintRect();
+            Vector3D V2 = pointThree - pointOne;
+            V2.PrintRect();
 
-            Vector3D Normal = U / V;
+            Vector3D Normal = V1 / V2;
+            Console.WriteLine("Normal");
+            Normal.PrintRect();
 
             if (Normal.X < 0 || Normal.Y < 0 || Normal.Z < 0)
             {
@@ -346,13 +352,16 @@ namespace MPG_Labs
 
         //Returns the Closest point on a line to a specified point.
         //Used https://math.stackexchange.com/questions/1521128/given-a-line-and-a-point-in-3d-how-to-find-the-closest-point-on-the-line for reference.
-        public Vector3D ClosestPointLine(Vector3D p, Vector3D q, Vector3D R)
+        public Vector3D ClosestPointLine(Vector3D p, Vector3D q, Vector3D d)
         {
             Vector3D PQ = q - p;
-            Vector3D d = PQ * 2; //placeholder
+            Console.WriteLine("PQ:");
+            PQ.PrintRect();
 
+            Vector3D test = p.ParaProjection(PQ, d);
+            test.PrintRect();
 
-            Vector3D S = p + p.ParaProjection(d, PQ);
+            Vector3D S = p + p.ParaProjection(PQ, d);
             return S; // Placeholder just to get it to shut up.
         }
 
@@ -362,7 +371,7 @@ namespace MPG_Labs
             Vector3D PQ = q - p;
             //Vector P-R
 
-            Vector3D S = q - n.ParaProjection(n, PQ);
+            Vector3D S = q -(n.ParaProjection(PQ, n));
             return S; // Placeholder just to get it to shut up.
         }
     }
