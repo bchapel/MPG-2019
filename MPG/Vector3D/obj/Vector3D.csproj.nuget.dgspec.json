@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\svc-student\\source\\repos\\MPG Labs\\Vector3D\\Vector3D.csproj": {}
+    "C:\\Users\\svc-student\\Desktop\\GitHub\\MPG-2019\\MPG\\Vector3D\\Vector3D.csproj": {}
   },
   "projects": {
-    "C:\\Users\\svc-student\\source\\repos\\MPG Labs\\Vector3D\\Vector3D.csproj": {
+    "C:\\Users\\svc-student\\Desktop\\GitHub\\MPG-2019\\MPG\\Vector3D\\Vector3D.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\svc-student\\source\\repos\\MPG Labs\\Vector3D\\Vector3D.csproj",
+        "projectUniqueName": "C:\\Users\\svc-student\\Desktop\\GitHub\\MPG-2019\\MPG\\Vector3D\\Vector3D.csproj",
         "projectName": "Vector3D",
-        "projectPath": "C:\\Users\\svc-student\\source\\repos\\MPG Labs\\Vector3D\\Vector3D.csproj",
+        "projectPath": "C:\\Users\\svc-student\\Desktop\\GitHub\\MPG-2019\\MPG\\Vector3D\\Vector3D.csproj",
         "packagesPath": "C:\\Users\\svc-student\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\svc-student\\source\\repos\\MPG Labs\\Vector3D\\obj\\",
+        "outputPath": "C:\\Users\\svc-student\\Desktop\\GitHub\\MPG-2019\\MPG\\Vector3D\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",

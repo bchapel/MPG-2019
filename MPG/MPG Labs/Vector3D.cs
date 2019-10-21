@@ -349,30 +349,21 @@ namespace MPG_Labs
         public Vector3D ClosestPointLine(Vector3D p, Vector3D q, Vector3D R)
         {
             Vector3D PQ = q - p;
+            Vector3D d = PQ * 2; //placeholder
 
-            //Do paralell Projection of something onto PQ:
 
-
-            return PQ; // Placeholder just to get it to shut up.
+            Vector3D S = p + p.ParaProjection(d, PQ);
+            return S; // Placeholder just to get it to shut up.
         }
 
-        public Vector3D ClosestPointsPlane(Vector3D p, Vector3D q, Vector3D r, Vector3D target)
+        public Vector3D ClosestPointsPlane(Vector3D p, Vector3D q,Vector3D n)
         {
             //Vector P->Q
             Vector3D PQ = q - p;
             //Vector P-R
-            Vector3D PR = r - q;
 
-            Vector3D Pt = target - p;
-
-            Vector3D normal = PQ / PR;
-
-            Vector3D output = new Vector3D();
-            return output; // Placeholder just to get it to shut up.
+            Vector3D S = q - n.ParaProjection(n, PQ);
+            return S; // Placeholder just to get it to shut up.
         }
-
-
-
-
     }
 }
