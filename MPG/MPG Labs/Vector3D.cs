@@ -283,7 +283,7 @@ namespace MPG_Labs
             return V * dotProduct;
         }
 
-        //Returns a Parallel Projection of Two Vectors.
+        //Returns a Pepindicular Projection of Two Vectors.
         public Vector3D PerpProjection (Vector3D V, Vector3D U)
         {
             return U - V.ParaProjection(V, U);
@@ -341,6 +341,34 @@ namespace MPG_Labs
             (((Z - center.Z) * scale.Z) + center.Z));
 
             return output;
+        }
+
+
+        //Returns the Closest point on a line to a specified point.
+        //Used https://math.stackexchange.com/questions/1521128/given-a-line-and-a-point-in-3d-how-to-find-the-closest-point-on-the-line for reference.
+        public Vector3D ClosestPointLine(Vector3D p, Vector3D q, Vector3D R)
+        {
+            Vector3D PQ = q - p;
+
+            //Do paralell Projection of something onto PQ:
+
+
+            return PQ; // Placeholder just to get it to shut up.
+        }
+
+        public Vector3D ClosestPointsPlane(Vector3D p, Vector3D q, Vector3D r, Vector3D target)
+        {
+            //Vector P->Q
+            Vector3D PQ = q - p;
+            //Vector P-R
+            Vector3D PR = r - q;
+
+            Vector3D Pt = target - p;
+
+            Vector3D normal = PQ / PR;
+
+            Vector3D output = new Vector3D();
+            return output; // Placeholder just to get it to shut up.
         }
 
 
