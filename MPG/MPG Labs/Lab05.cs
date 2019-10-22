@@ -8,7 +8,7 @@ namespace MPG_Labs
     {
 
         //http://jccc-mpg.wikidot.com/work-and-energy
-        static void Main()
+        static void Mains()
         {
             Lab05 test = new Lab05();
             //test.OneDMotion();
@@ -158,7 +158,7 @@ namespace MPG_Labs
 
         float PE (Vector3D r)
         {
-
+            return 2f;
         }
     }
 
