@@ -39,6 +39,14 @@ namespace MPG_Labs
             W = 1;
         }
 
+        public Vector3D(float initX, float initY, float initZ, float initW)
+        {
+            X = initX;
+            Y = initY;
+            Z = initZ;
+            W = initW;
+        }
+
         //Set this 2D Vector's X and Y values externally.
         public void SetRectGivenRect(float inputX, float inputY)
         {
@@ -327,26 +335,26 @@ namespace MPG_Labs
             return (X * input.X) + (Y * input.Y) + (Z * input.Z) + (W * input.W);
         }
 
-        public Vector3D MatrixTranslation(Vector3D input)
+        public void MatrixTranslation(Vector3D input)
         {
-            Vector3D output = new Vector3D(X + input.X, Y + input.Y, Z + input.Z);
-            return output;
+            X += input.X;
+            Y += input.Y;
+            Z += input.Z;
         }
 
-        public Vector3D MatrixRawScale(Vector3D input)
+        public void MatrixRawScale(Vector3D input)
         {
-            Vector3D output = new Vector3D(X * input.X, Y * input.Y, Z * input.Z);
-            return output;
+            X *= input.X;
+            Y *= input.Y;
+            Z *= input.Z;
         }
 
-        public Vector3D MatrixCenterScale(Vector3D scale, Vector3D center)
+        public void MatrixCenterScale(Vector3D scale, Vector3D center)
         {
-            Vector3D output = new Vector3D
-            ((((X - center.X) * scale.X) + center.X),
-            (((Y - center.Y) * scale.Y) + center.Y),
-            (((Z - center.Z) * scale.Z) + center.Z));
+            X = (((X - center.X) * scale.X) + center.X);
+            Y = (((Y - center.Y) * scale.Y) + center.Y);
+            Z = ((((Z - center.Z) * scale.Z) + center.Z));
 
-            return output;
         }
 
 
