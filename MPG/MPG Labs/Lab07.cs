@@ -7,7 +7,7 @@ namespace MPG_Labs
     class Lab07
     {
 
-        static void Main()
+        static void Mains()
         {
 
             Vector3D ship = new Vector3D(282, 791, 456);

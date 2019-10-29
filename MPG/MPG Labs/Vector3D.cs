@@ -30,7 +30,7 @@ namespace MPG_Labs
             Z = 0;
             W = 1;
         }
-        //Overloaded constructor allowing for defining the X, Y, and Z when creating the Vecotr
+        //Overloaded constructor allowing for defining the X, Y, and Z when creating the Vector
         public Vector3D(float initX, float initY, float initZ)
         {
             X = initX;
@@ -38,7 +38,7 @@ namespace MPG_Labs
             Z = initZ;
             W = 1;
         }
-
+        //Overloaded constructor allowing for defining the X, Y, Z, and W when creating the Vecotr
         public Vector3D(float initX, float initY, float initZ, float initW)
         {
             X = initX;
@@ -47,6 +47,7 @@ namespace MPG_Labs
             W = initW;
         }
 
+        //Overload so User can use 2D values.
         //Set this 2D Vector's X and Y values externally.
         public void SetRectGivenRect(float inputX, float inputY)
         {
@@ -62,6 +63,16 @@ namespace MPG_Labs
             Y = inputY;
             Z = inputZ;
         }
+
+        //Overloaded SetRectGivenRect function, allowing for inputing a W value.
+        public void SetRectGivenRect(float inputX, float inputY, float inputZ, float inputW)
+        {
+            X = inputX;
+            Y = inputY;
+            Z = inputZ;
+            W = inputW;
+        }
+
 
         //Set this 2D Vector's X and Y values externally via magnitude and heading.
         public void SetRectGivenPolar(float magnitude, float heading)
@@ -89,6 +100,14 @@ namespace MPG_Labs
         {
             Console.WriteLine("(" + X + ", " + Y + ", " + Z + ")");
         }
+
+        //PrintMatrix lets the user print all Vector values, even W.  
+        //This was made as a seperate function rather than an Overload, because W is present in all Vector3s.
+        public void PrintMatrix()
+        {
+            Console.WriteLine("(" + X + ", " + Y + ", " + Z + ", " + W + ")");
+        }
+
 
         //Print the magnitude of this vector. Square Root of ( x*x + y*y + z*z)
         public void PrintMag()
@@ -308,7 +327,7 @@ namespace MPG_Labs
 
         }
 
-        //Returns the 
+        //Returns the Normal Vector of a plane defined by the three input Vectors.
         public Vector3D PlaneEquation(Vector3D pointOne, Vector3D pointTwo, Vector3D pointThree)
         {
             Vector3D V1 = pointTwo - pointOne;
@@ -329,12 +348,14 @@ namespace MPG_Labs
             return Normal;
         }
 
+        //Returns the Dot Product of this Vector times another 4D Input Vector, using both Vector's W values.
         public float DotProduct4D(Vector3D input)
         {
 
             return (X * input.X) + (Y * input.Y) + (Z * input.Z) + (W * input.W);
         }
 
+        //Adds another Vector to this current Vector.
         public void MatrixTranslation(Vector3D input)
         {
             X += input.X;
@@ -342,6 +363,7 @@ namespace MPG_Labs
             Z += input.Z;
         }
 
+        //Scales this Vector by another Vector.
         public void MatrixRawScale(Vector3D input)
         {
             X *= input.X;
@@ -349,6 +371,7 @@ namespace MPG_Labs
             Z *= input.Z;
         }
 
+        //Scales this Vector by another Vector, taking into account a specified center point rather than traditional <0,0,0>.
         public void MatrixCenterScale(Vector3D scale, Vector3D center)
         {
             X = (((X - center.X) * scale.X) + center.X);
@@ -358,27 +381,18 @@ namespace MPG_Labs
         }
 
 
-        //Returns the Closest point on a line to a specified point.
-        //Used https://math.stackexchange.com/questions/1521128/given-a-line-and-a-point-in-3d-how-to-find-the-closest-point-on-the-line for reference.
+        //Returns the Closest point, S, on a line P + d to a specified point Q.
         public Vector3D ClosestPointLine(Vector3D p, Vector3D q, Vector3D d)
         {
             Vector3D PQ = q - p;
-            Console.WriteLine("PQ:");
-            PQ.PrintRect();
-
-            Vector3D test = p.ParaProjection(PQ, d);
-            test.PrintRect();
-
             Vector3D S = p + p.ParaProjection(PQ, d);
             return S; // Placeholder just to get it to shut up.
         }
 
+        //Returns the Closest Point, S, on a Plane, n, to a Specified Point Q
         public Vector3D ClosestPointsPlane(Vector3D p, Vector3D q,Vector3D n)
         {
-            //Vector P->Q
             Vector3D PQ = q - p;
-            //Vector P-R
-
             Vector3D S = q -(n.ParaProjection(PQ, n));
             return S; // Placeholder just to get it to shut up.
         }

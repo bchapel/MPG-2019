@@ -226,6 +226,7 @@ namespace MPG_Labs
                         Console.WriteLine();
                         vector4.PrintRect();
 
+                        //Center Vector is Recalculated via averaging out each Vector's value.
                         avgX = (vector1.GetX() + vector2.GetX() + vector3.GetX() + vector4.GetX()) / 4;
                         avgY = (vector1.GetY() + vector2.GetY() + vector3.GetY() + vector4.GetY()) / 4;
                         avgZ = (vector1.GetZ() + vector2.GetZ() + vector3.GetZ() + vector4.GetZ()) / 4;
@@ -296,7 +297,7 @@ namespace MPG_Labs
                         vector4.PrintRect();
                         Console.WriteLine();
 
-
+                        //Recalculating the Center Vector.
                         avgX = (vector1.GetX() + vector2.GetX() + vector3.GetX() + vector4.GetX()) / 4;
                         avgY = (vector1.GetY() + vector2.GetY() + vector3.GetY() + vector4.GetY()) / 4;
                         avgZ = (vector1.GetZ() + vector2.GetZ() + vector3.GetZ() + vector4.GetZ()) / 4;
@@ -331,28 +332,29 @@ namespace MPG_Labs
 
                         //All Vectors are then printed and labeled.
                         Console.WriteLine();
+
                         Console.WriteLine("Vector One:");
                         vector1.PrintRect();
-                        Console.WriteLine();
 
+                        Console.WriteLine();
                         Console.WriteLine("Vector Two:");
                         vector2.PrintRect();
-                        Console.WriteLine();
 
+                        Console.WriteLine();
                         Console.WriteLine("Vector Three:");
                         vector3.PrintRect();
-                        Console.WriteLine();
 
+                        Console.WriteLine();
                         Console.WriteLine("Vector Four:");
                         vector4.PrintRect();
-                        Console.WriteLine();
 
+                        Console.WriteLine();
                         Console.ReadLine();
 
                         i++;
                         break;
 
-                    case 4:
+                    case 4: //Exit the program
                         Environment.Exit(0);
                         break;
 
@@ -369,26 +371,24 @@ namespace MPG_Labs
             Console.WriteLine("Final Result of Operations");
 
             Console.WriteLine();
-
             Console.WriteLine();
+
             Console.WriteLine("Vector One:");
             vector1.PrintRect();
-            Console.WriteLine();
 
+            Console.WriteLine();
             Console.WriteLine("Vector Two:");
             vector2.PrintRect();
-            Console.WriteLine();
 
+            Console.WriteLine();
             Console.WriteLine("Vector Three:");
             vector3.PrintRect();
-            Console.WriteLine();
 
+            Console.WriteLine();
             Console.WriteLine("Vector Four:");
             vector4.PrintRect();
+
             Console.WriteLine();
-
-            Console.ReadLine();
-
             Console.ReadLine();
         }
     }
