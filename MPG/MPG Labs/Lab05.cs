@@ -8,7 +8,7 @@ namespace MPG_Labs
     {
 
         //http://jccc-mpg.wikidot.com/work-and-energy
-        static void Mains()
+        public Lab05()
         {
             Lab05 test = new Lab05();
             //test.OneDMotion();

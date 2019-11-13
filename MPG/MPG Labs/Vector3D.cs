@@ -386,7 +386,7 @@ namespace MPG_Labs
         {
             Vector3D PQ = q - p;
             Vector3D S = p + p.ParaProjection(PQ, d);
-            return S; // Placeholder just to get it to shut up.
+            return S;
         }
 
         //Returns the Closest Point, S, on a Plane, n, to a Specified Point Q
@@ -394,7 +394,7 @@ namespace MPG_Labs
         {
             Vector3D PQ = q - p;
             Vector3D S = q -(n.ParaProjection(PQ, n));
-            return S; // Placeholder just to get it to shut up.
+            return S;
         }
     }
 }

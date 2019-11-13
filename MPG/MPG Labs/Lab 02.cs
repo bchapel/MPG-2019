@@ -16,7 +16,7 @@ namespace MPG_Labs
 
         */
 
-        private static void Lab_02_Main()
+        public Lab_02()
         {
             float elapsedTime = 0;                  //seconds
             float timeStep = 0.1f;                  //seconds

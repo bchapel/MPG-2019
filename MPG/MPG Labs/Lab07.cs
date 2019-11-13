@@ -4,10 +4,17 @@ using System.Text;
 
 namespace MPG_Labs
 {
+    /*
+    Name: Lab 07 - Closest Points.
+    Author: Bowen Chapel
+    Date:
+    Summary: 
+
+    */
     class Lab07
     {
 
-        static void Mains()
+        public Lab07()
         {
 
             Vector3D ship = new Vector3D(282, 791, 456);

@@ -13,7 +13,7 @@ namespace MPG_Labs
          - 1.1 - Added comments, summary, and formatting for readability.
 
     */
-        private static void Lab03Main()
+        public Lab03()
         {
 
             //Asks the user to enter the magnitude, heading, and pitch of the space ship's velocity

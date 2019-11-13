@@ -12,7 +12,7 @@ namespace MPG_Labs
 
      */
 
-        public static void Lab_01_Main()
+        public Lab_01()
         {
             //Temporary float values used to store user input and create two vectors.
             float tempX1;

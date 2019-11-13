@@ -15,31 +15,31 @@ Changelog.  1.1 - October 15th - 2019. Modified to use Vector class, also improv
 namespace MPG_Labs
 {
     //Program Class Purpose: To test translation, scaling, and center-scaling functions added to the Vector3D class.
-    class Lab06
+    class Lab10
     {
-        Vector3D vector1 = new Vector3D(0, 0, 0, 0);
-        Vector3D vector2 = new Vector3D(0, 0, 0, 0);
-        Vector3D vector3 = new Vector3D(0, 0, 0, 0);
-        Vector3D vector4 = new Vector3D(0, 0, 0, 0);
+        Vector3D vector1 = new Vector3D(0, 0, 0);
+        Vector3D vector2 = new Vector3D(0, 0, 0);
+        Vector3D vector3 = new Vector3D(0, 0, 0);
+        Vector3D vector4 = new Vector3D(0, 0, 0);
 
-        Vector3D centerVector = new Vector3D(0, 0, 0, 0);
-        Vector3D scaleVector = new Vector3D(1, 1, 1, 1);
-        Vector3D translateVector = new Vector3D(1, 1, 1, 1);
+        Vector3D centerVector = new Vector3D(0, 0, 0);
+        Vector3D scaleVector = new Vector3D(1, 1, 1);
+        Vector3D translateVector = new Vector3D(1, 1, 1);
         float avgX;
         float avgY;
         float avgZ;
 
 
-        public Lab06()
+        public Lab10()
         {
             //Instantiates a new version of Program, and creates a Vector3D array, holding 4 vectors.
-            Lab06 testProgram = new Lab06();
+            Lab10 testProgram10 = new Lab10();
             Vector3D[] vectors = new Vector3D[4];
 
-            vectors[0] = testProgram.vector1;
-            vectors[1] = testProgram.vector2;
-            vectors[2] = testProgram.vector3;
-            vectors[3] = testProgram.vector4;
+            vectors[0] = testProgram10.vector1;
+            vectors[1] = testProgram10.vector2;
+            vectors[2] = testProgram10.vector3;
+            vectors[3] = testProgram10.vector4;
 
             //This value is used for the while loop below, to ensure every Vector from the array above is cycled through.
             int number = 0;
@@ -50,10 +50,24 @@ namespace MPG_Labs
             float tempY;
             float tempZ;
 
+            string input = "";
+            string[] split;
+            float[] num;
+            Vector3D temp = new Vector3D();
+
 
             //This loop uses the Vector Array created above so that the User may specify the X, Y, Z values of all of every Vector.
             while (number < 4)
             {
+                Console.WriteLine("Please Input Vector" + (number + 1));
+                Console.WriteLine("Format Example:   0 2 14");
+
+                //Code so User can input an entire Vector in one line instead of by individiual component.
+                input = Console.ReadLine();
+                split = input.Split(' ');
+                num = Array.ConvertAll<string, float>(split, float.Parse);
+                temp.SetRectGivenRect(num[0], num[1], num[2]);
+
                 Console.WriteLine("Please Provide an X value for Vector " + (number + 1));
                 tempX = float.Parse(Console.ReadLine());
                 Console.WriteLine("Please Provide an Y value for Vector " + (number + 1));
@@ -64,11 +78,19 @@ namespace MPG_Labs
                 Console.WriteLine();
 
                 //Each Vector correspondingly has it's X,Y,Z components assigned.
-                vectors[number].SetRectGivenRect(tempX, tempY, tempZ);
+                vectors[number] = temp;
 
                 Console.WriteLine();
                 number++;
             }
+            Console.WriteLine("Please Input a Center Vector");
+            Console.WriteLine("Format Example:   0 2 14");
+
+            //Code so User can input an entire Vector in one line instead of by individiual component.
+            input = Console.ReadLine();
+            split = input.Split(' ');
+            num = Array.ConvertAll<string, float>(split, float.Parse);
+
             //After the While loop is finished, it asks the user for a center point.
             Console.WriteLine();
             Console.WriteLine("Please Provide an X value for the Center Vector");
@@ -79,11 +101,11 @@ namespace MPG_Labs
             tempZ = float.Parse(Console.ReadLine());
 
             //These coordinates are then assigned to the centerVector's X,Y,Z components.
-            testProgram.centerVector.SetRectGivenRect(tempX, tempY, tempZ);
+            testProgram10.centerVector.SetRectGivenRect(num[0], num[1], num[2]);
 
             Console.ReadLine();
             Console.Clear();
-            testProgram.CallSwitch(0);
+            testProgram10.CallSwitch(0);
             Console.ReadLine();
         }
 
@@ -104,8 +126,7 @@ namespace MPG_Labs
                 Console.WriteLine("(1.) Translate the Object");
                 Console.WriteLine("(2.) Scale the Object Raw");
                 Console.WriteLine("(3.) Scale the Object around it's Center");
-                Console.WriteLine("(4.) Rotate the Object around a specified Axis.");
-                Console.WriteLine("(5.) Exit the Program");
+                Console.WriteLine("(4.) Exit the Program");
 
                 Console.WriteLine();
 
@@ -354,121 +375,7 @@ namespace MPG_Labs
                         i++;
                         break;
 
-                    case 4: //Rotations!
-
-                        Vector3D[] vectors = new Vector3D[4];
-
-                        vectors[0] = new Vector3D(vector1.GetX(), vector1.GetY(), vector1.GetZ());
-                        vectors[1] = new Vector3D(vector2.GetX(), vector2.GetY(), vector2.GetZ());
-                        vectors[2] = new Vector3D(vector3.GetX(), vector3.GetY(), vector3.GetZ());
-                        vectors[3] = new Vector3D(vector4.GetX(), vector4.GetY(), vector4.GetZ());
-
-                        Console.WriteLine("How large of an angle would you like to use ? (Degrees)");
-                        float angleTheta = float.Parse(Console.ReadLine());
-
-                        angleTheta = vector1.DegreeToRad(angleTheta);
-                        Console.WriteLine("Converted to radians: " + angleTheta);
-
-
-                        Console.WriteLine("What Axis would you like to rotate around?");
-                        Console.WriteLine("(1.) X Axis");
-                        Console.WriteLine("(2.) Y Axis");
-                        Console.WriteLine("(3.) Z Axis");
-                        int choice2 = Convert.ToInt32(Console.ReadLine()); //User's choice is stored and used in the switch.
-
-                        switch (choice2)
-                        {
-                            case 1: // X Axis
-                                int vectorNumber = 0;
-
-                                while (vectorNumber < 4)
-                                {
-                                    tempX = vectors[vectorNumber].GetX();//1X + 0y + 0Z + 0 * 1
-
-                                    //Get angle from axis to vectors, that’s theta
-
-                                    //0X + y * CosTheta + z * -SinTheta + 0 *1
-                                    tempY = (vectors[vectorNumber].GetY() * (float)Math.Cos(angleTheta)) + (vectors[vectorNumber].GetZ() * -(float)Math.Sin(angleTheta));
-                                    //0x + y * SinTheta + Z * CosTheta + 0 *1
-                                    tempZ = (vectors[vectorNumber].GetY() * (float)Math.Sin(angleTheta)) + (vectors[vectorNumber].GetZ() * (float)Math.Cos(angleTheta));
-
-                                    vectors[vectorNumber].SetRectGivenRect(tempX, tempY, tempZ);
-                                    vectorNumber++;
-                                }
-
-                                break;
-                            case 2: //Y Axis
-                                vectorNumber = 0;
-
-                                while (vectorNumber < 4)
-                                {
-                                    //X * CosTheta + 0Y + Z * SinTheta + 0 * 1
-                                    tempX = (vectors[vectorNumber].GetX() * ((float)Math.Cos(angleTheta)) + (vectors[vectorNumber].GetZ() * (float)Math.Sin(angleTheta)));
-                                    //0X + 1Y + 0Z + 0 * 1
-                                    tempY = vectors[vectorNumber].GetY();
-                                    //X * -SinTheta + 0Y + Z * CosTheta + 0 * 1
-                                    tempZ = (vectors[vectorNumber].GetX() * -(float)Math.Sin(angleTheta) + (vectors[vectorNumber].GetZ() * (float)Math.Cos(angleTheta)));
-
-                                    vectors[vectorNumber].SetRectGivenRect(tempX, tempY, tempZ);
-                                    vectorNumber++;
-                                }
-                                break;
-
-                            case 3: //Z Axis
-                                vectorNumber = 0;
-
-                                while (vectorNumber < 4)
-                                {
-                                    //X * CosTheta + Y * -SinTheta + 0Z + 0 * 1
-                                    tempX = (vectors[vectorNumber].GetX() * ((float)Math.Cos(angleTheta)) + (vectors[vectorNumber].GetY() * -(float)Math.Sin(angleTheta)));
-                                    //X * SinTheta + Y * CosTheta + 0Z + 0 * 1
-                                    tempY = (vectors[vectorNumber].GetX() * ((float)Math.Sin(angleTheta)) + (vectors[vectorNumber].GetY() * (float)Math.Cos(angleTheta)));
-                                    //0X + 0Y + Z + 0 * 1
-                                    tempZ = vectors[vectorNumber].GetZ();
-                                    //Vectors[vectorNumber].GetZ() * (Sin( angleTheta) + Math.Cos( angleTheta));
-
-                                    vectors[vectorNumber].SetRectGivenRect(tempX, tempY, tempZ);
-                                    vectorNumber++;
-                                }
-                                break;
-
-
-                            default:
-                                Console.WriteLine("Invalid Input, action cancelled - returning to Matrix menu.");
-                                CallSwitch(i);
-                                break;
-                        }
-
-
-                        vector1.SetRectGivenRect(vectors[0].GetX(), vectors[0].GetY(), vectors[0].GetZ());
-                        vector2.SetRectGivenRect(vectors[1].GetX(), vectors[1].GetY(), vectors[1].GetZ());
-                        vector3.SetRectGivenRect(vectors[2].GetX(), vectors[2].GetY(), vectors[2].GetZ());
-                        vector4.SetRectGivenRect(vectors[3].GetX(), vectors[3].GetY(), vectors[3].GetZ());
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine("Vector One:");
-                        vector1.PrintRect();
-                        Console.WriteLine();
-
-                        Console.WriteLine("Vector Two:");
-                        vector2.PrintRect();
-                        Console.WriteLine();
-
-                        Console.WriteLine("Vector Three:");
-                        vector3.PrintRect();
-                        Console.WriteLine();
-
-                        Console.WriteLine("Vector Four:");
-                        vector4.PrintRect();
-                        Console.WriteLine();
-
-                        Console.ReadLine();
-
-                        i++;
-                        break;
-
-                    case 5: //Exit the program
+                    case 4: //Exit the program
                         Environment.Exit(0);
                         break;
 
