@@ -17,10 +17,10 @@ namespace MPG_Labs
     //Program Class Purpose: To test translation, scaling, and center-scaling functions added to the Vector3D class.
     class Lab10
     {
-        Vector3D vector1 = new Vector3D(0, 0, 0);
-        Vector3D vector2 = new Vector3D(0, 0, 0);
-        Vector3D vector3 = new Vector3D(0, 0, 0);
-        Vector3D vector4 = new Vector3D(0, 0, 0);
+        Vector3D vector1 = new Vector3D(1,1,1);
+        Vector3D vector2 = new Vector3D();
+        Vector3D vector3 = new Vector3D();
+        Vector3D vector4 = new Vector3D();
 
         Vector3D centerVector = new Vector3D(0, 0, 0);
         Vector3D scaleVector = new Vector3D(1, 1, 1);
