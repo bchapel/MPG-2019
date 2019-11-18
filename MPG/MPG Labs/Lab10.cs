@@ -17,14 +17,14 @@ namespace MPG_Labs
     //Program Class Purpose: To test translation, scaling, and center-scaling functions added to the Vector3D class.
     class Lab10
     {
-        Vector3D vector1 = new Vector3D(1,1,1);
+        Vector3D vector1 = new Vector3D();
         Vector3D vector2 = new Vector3D();
         Vector3D vector3 = new Vector3D();
         Vector3D vector4 = new Vector3D();
 
-        Vector3D centerVector = new Vector3D(0, 0, 0);
-        Vector3D scaleVector = new Vector3D(1, 1, 1);
-        Vector3D translateVector = new Vector3D(1, 1, 1);
+        Vector3D centerVector = new Vector3D();
+        Vector3D scaleVector = new Vector3D();
+        Vector3D translateVector = new Vector3D();
         float avgX;
         float avgY;
         float avgZ;
@@ -33,13 +33,12 @@ namespace MPG_Labs
         public Lab10()
         {
             //Instantiates a new version of Program, and creates a Vector3D array, holding 4 vectors.
-            Lab10 testProgram10 = new Lab10();
             Vector3D[] vectors = new Vector3D[4];
 
-            vectors[0] = testProgram10.vector1;
-            vectors[1] = testProgram10.vector2;
-            vectors[2] = testProgram10.vector3;
-            vectors[3] = testProgram10.vector4;
+            vectors[0] = vector1;
+            vectors[1] = vector2;
+            vectors[2] = vector3;
+            vectors[3] = vector4;
 
             //This value is used for the while loop below, to ensure every Vector from the array above is cycled through.
             int number = 0;
@@ -101,11 +100,11 @@ namespace MPG_Labs
             tempZ = float.Parse(Console.ReadLine());
 
             //These coordinates are then assigned to the centerVector's X,Y,Z components.
-            testProgram10.centerVector.SetRectGivenRect(num[0], num[1], num[2]);
+            centerVector.SetRectGivenRect(num[0], num[1], num[2]);
 
             Console.ReadLine();
             Console.Clear();
-            testProgram10.CallSwitch(0);
+            CallSwitch(0);
             Console.ReadLine();
         }
 

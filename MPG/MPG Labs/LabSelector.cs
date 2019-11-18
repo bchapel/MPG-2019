@@ -20,7 +20,7 @@ namespace MPG_Labs
             Console.WriteLine("(8) Collision Detection");
             Console.WriteLine("(9) Collisions & Momentum -- Not working"); 
             Console.WriteLine("(10) Rotations");
-            //Console.WriteLine("(11) Quaternion Roation");
+            Console.WriteLine("(11) Quaternion Rotation");
             //Console.WriteLine("(12) Rotational Dynamics");
 
 
@@ -59,7 +59,7 @@ namespace MPG_Labs
                     Lab10 lab10 = new Lab10();
                     break;
                 case 11:
-                    //Lab11 lab11 = new Lab11();
+                    Lab11 lab11 = new Lab11();
                     break;
                 case 12:
                     //Lab12 lab12 = new Lab12();
