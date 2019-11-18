@@ -163,10 +163,7 @@ namespace MPG_Labs
         //Scales a specified Vector by a designated scaling amount.  Operator Overload for easy use.
         public static Vector3D operator *(Vector3D U, float scale)
         {
-            U.X *= scale;
-            U.Y *= scale;
-            U.Z *= scale;
-            return U;
+            return new Vector3D(U.X * scale, U.Y * scale, U.Z * scale);
         }
         //Normalizes the specified Vector.
         public static Vector3D operator !(Vector3D input)
