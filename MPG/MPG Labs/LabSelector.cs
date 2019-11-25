@@ -21,7 +21,7 @@ namespace MPG_Labs
             Console.WriteLine("(9) Collisions & Momentum -- Not working"); 
             Console.WriteLine("(10) Rotations");
             Console.WriteLine("(11) Quaternion Rotation");
-            //Console.WriteLine("(12) Rotational Dynamics");
+            Console.WriteLine("(12) Rotational Dynamics");
 
 
             int choice = Convert.ToInt32(Console.ReadLine());
@@ -62,7 +62,7 @@ namespace MPG_Labs
                     break;
                 case 9:
                     Console.Clear();
-                    //Lab09 lab9 = new Lab09();
+                    Lab09 lab9 = new Lab09();
                     break;
                 case 10:
                     Console.Clear();
@@ -74,12 +74,7 @@ namespace MPG_Labs
                     break;
                 case 12:
                     Console.Clear();
-                    //Lab12 lab12 = new Lab12();
-                    break;
-
-                case 13:
-                    Console.Clear();
-                    //Lab13 lab13 = new Lab13();
+                    Lab12 lab12 = new Lab12();
                     break;
             }
         }

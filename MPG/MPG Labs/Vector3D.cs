@@ -165,6 +165,13 @@ namespace MPG_Labs
         {
             return new Vector3D(U.X * scale, U.Y * scale, U.Z * scale);
         }
+
+        //Overload to allow for putting a scale first and a Vector second.
+        public static Vector3D operator *(float scale, Vector3D U)
+        {
+            return new Vector3D(U.X * scale, U.Y * scale, U.Z * scale);
+        }
+
         //Normalizes the specified Vector.
         public static Vector3D operator !(Vector3D input)
         {
@@ -392,6 +399,26 @@ namespace MPG_Labs
             Vector3D PQ = q - p;
             Vector3D S = q -(n.ParaProjection(PQ, n));
             return S;
+        }
+
+        //Miscallaneous Functions added to Vector3D class over time.
+
+        //Distance between two Vectors.
+        public float Distance(Vector3D One, Vector3D Two)
+        {
+
+            return (float)Math.Sqrt((Two.GetX() - One.GetX()) * (Two.GetX() - One.GetX()) +
+                (Two.GetY() - One.GetY() * (Two.GetY() - One.GetY())));
+        }
+
+        //Used for Constructing a Vector's values from User Console input.
+        public void ConstructInput(string ConsoleRead)
+        {
+
+            string input = ConsoleRead;
+            string[] split = input.Split(' ');
+            float[] num = Array.ConvertAll<string, float>(split, float.Parse);
+            SetRectGivenRect(num[0], num[1], num[2]);
         }
     }
 }

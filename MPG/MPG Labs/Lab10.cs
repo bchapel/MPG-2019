@@ -17,14 +17,11 @@ namespace MPG_Labs
     //Program Class Purpose: To test translation, scaling, and center-scaling functions added to the Vector3D class.
     class Lab10
     {
-        Vector3D vector1 = new Vector3D();
-        Vector3D vector2 = new Vector3D();
-        Vector3D vector3 = new Vector3D();
-        Vector3D vector4 = new Vector3D();
-
+        Vector3D[] vectors = new Vector3D[4];
         Vector3D centerVector = new Vector3D();
         Vector3D scaleVector = new Vector3D();
         Vector3D translateVector = new Vector3D();
+        Vector3D temp = new Vector3D();
         float avgX;
         float avgY;
         float avgZ;
@@ -32,27 +29,14 @@ namespace MPG_Labs
 
         public Lab10()
         {
-            //Instantiates a new version of Program, and creates a Vector3D array, holding 4 vectors.
-            Vector3D[] vectors = new Vector3D[4];
 
-            vectors[0] = vector1;
-            vectors[1] = vector2;
-            vectors[2] = vector3;
-            vectors[3] = vector4;
 
             //This value is used for the while loop below, to ensure every Vector from the array above is cycled through.
             int number = 0;
 
-
-            //Temp variables used to store a user input from a console.readline().
-            float tempX;
-            float tempY;
-            float tempZ;
-
             string input = "";
             string[] split;
             float[] num;
-            Vector3D temp = new Vector3D();
 
 
             //This loop uses the Vector Array created above so that the User may specify the X, Y, Z values of all of every Vector.
@@ -66,13 +50,6 @@ namespace MPG_Labs
                 split = input.Split(' ');
                 num = Array.ConvertAll<string, float>(split, float.Parse);
                 temp.SetRectGivenRect(num[0], num[1], num[2]);
-
-                Console.WriteLine("Please Provide an X value for Vector " + (number + 1));
-                tempX = float.Parse(Console.ReadLine());
-                Console.WriteLine("Please Provide an Y value for Vector " + (number + 1));
-                tempY = float.Parse(Console.ReadLine());
-                Console.WriteLine("Please Provide an Z value for Vector " + (number + 1));
-                tempZ = float.Parse(Console.ReadLine());
 
                 Console.WriteLine();
 
@@ -89,15 +66,6 @@ namespace MPG_Labs
             input = Console.ReadLine();
             split = input.Split(' ');
             num = Array.ConvertAll<string, float>(split, float.Parse);
-
-            //After the While loop is finished, it asks the user for a center point.
-            Console.WriteLine();
-            Console.WriteLine("Please Provide an X value for the Center Vector");
-            tempX = float.Parse(Console.ReadLine());
-            Console.WriteLine("Please Provide an Y value for the Center Vector");
-            tempY = float.Parse(Console.ReadLine());
-            Console.WriteLine("Please Provide an Z value for the Center Vector");
-            tempZ = float.Parse(Console.ReadLine());
 
             //These coordinates are then assigned to the centerVector's X,Y,Z components.
             centerVector.SetRectGivenRect(num[0], num[1], num[2]);
@@ -125,7 +93,8 @@ namespace MPG_Labs
                 Console.WriteLine("(1.) Translate the Object");
                 Console.WriteLine("(2.) Scale the Object Raw");
                 Console.WriteLine("(3.) Scale the Object around it's Center");
-                Console.WriteLine("(4.) Exit the Program");
+                Console.WriteLine("(4.) Rotating the Object");
+                Console.WriteLine("(5.) Exit the Program");
 
                 Console.WriteLine();
 
@@ -154,10 +123,11 @@ namespace MPG_Labs
 
 
                         //The temporary translate Vectors are given data, and printed.
-                        translate1.SetRectGivenRect(1, 0, 0, vector1.GetX() + scaleVector.GetX());
-                        translate2.SetRectGivenRect(0, 1, 0, vector1.GetY() + scaleVector.GetY());
-                        translate3.SetRectGivenRect(0, 0, 1, vector1.GetZ() + scaleVector.GetZ());
+                        translate1.SetRectGivenRect(1, 0, 0, vectors[0].GetX() + scaleVector.GetX());
+                        translate2.SetRectGivenRect(0, 1, 0, vectors[0].GetY() + scaleVector.GetY());
+                        translate3.SetRectGivenRect(0, 0, 1, vectors[0].GetZ() + scaleVector.GetZ());
                         translate4.SetRectGivenRect(0, 0, 0, 1);
+                        
 
                         Console.WriteLine();
                         translate1.PrintMatrix();
@@ -168,20 +138,20 @@ namespace MPG_Labs
                         Console.WriteLine();
 
                         Console.WriteLine("Old Vector 1:");
-                        vector1.PrintRect();
+                        vectors[0].PrintRect();
 
                         Console.WriteLine();
                         //The first Vector is translated and printed.
                         Console.WriteLine("New Vector 1");
-                        vector1.MatrixTranslation(scaleVector);
-                        vector1.PrintRect();
+                        vectors[0].MatrixTranslation(scaleVector);
+                        vectors[0].PrintRect();
 
                         Console.ReadLine();
 
                         //The temporary translate Vectors are given data, and printed.
-                        translate1.SetRectGivenRect(1, 0, 0, vector2.GetX() + scaleVector.GetX());
-                        translate2.SetRectGivenRect(0, 1, 0, vector2.GetY() + scaleVector.GetY());
-                        translate3.SetRectGivenRect(0, 0, 1, vector2.GetZ() + scaleVector.GetZ());
+                        translate1.SetRectGivenRect(1, 0, 0, vectors[1].GetX() + scaleVector.GetX());
+                        translate2.SetRectGivenRect(0, 1, 0, vectors[1].GetY() + scaleVector.GetY());
+                        translate3.SetRectGivenRect(0, 0, 1, vectors[1].GetZ() + scaleVector.GetZ());
                         translate4.SetRectGivenRect(0, 0, 0, 1);
 
                         Console.WriteLine();
@@ -192,21 +162,21 @@ namespace MPG_Labs
                         Console.WriteLine();
 
                         Console.WriteLine("Old Vector 2:");
-                        vector2.PrintRect();
+                        vectors[1].PrintRect();
                         Console.WriteLine();
                         //The Second Vector is translated and printed.
                         Console.WriteLine("New Vector 2");
-                        vector2.MatrixTranslation(scaleVector);
+                        vectors[1].MatrixTranslation(scaleVector);
                         Console.WriteLine();
-                        vector2.PrintRect();
+                        vectors[1].PrintRect();
 
                         Console.ReadLine();
 
                         //And so on....
 
-                        translate1.SetRectGivenRect(1, 0, 0, vector3.GetX() + scaleVector.GetX());
-                        translate2.SetRectGivenRect(0, 1, 0, vector3.GetY() + scaleVector.GetY());
-                        translate3.SetRectGivenRect(0, 0, 1, vector3.GetZ() + scaleVector.GetZ());
+                        translate1.SetRectGivenRect(1, 0, 0, vectors[2].GetX() + scaleVector.GetX());
+                        translate2.SetRectGivenRect(0, 1, 0, vectors[2].GetY() + scaleVector.GetY());
+                        translate3.SetRectGivenRect(0, 0, 1, vectors[2].GetZ() + scaleVector.GetZ());
                         translate4.SetRectGivenRect(0, 0, 0, 1);
 
                         Console.WriteLine();
@@ -217,18 +187,18 @@ namespace MPG_Labs
                         Console.WriteLine();
 
                         Console.WriteLine("Old Vector 3:");
-                        vector3.PrintRect();
+                        vectors[2].PrintRect();
                         Console.WriteLine();
                         Console.WriteLine("New Vector 3");
-                        vector3.MatrixTranslation(scaleVector);
+                        vectors[2].MatrixTranslation(scaleVector);
                         Console.WriteLine();
-                        vector3.PrintRect();
+                        vectors[2].PrintRect();
 
                         Console.ReadLine();
 
-                        translate1.SetRectGivenRect(1, 0, 0, vector4.GetX() + scaleVector.GetX());
-                        translate2.SetRectGivenRect(0, 1, 0, vector4.GetY() + scaleVector.GetY());
-                        translate3.SetRectGivenRect(0, 0, 1, vector4.GetZ() + scaleVector.GetZ());
+                        translate1.SetRectGivenRect(1, 0, 0, vectors[3].GetX() + scaleVector.GetX());
+                        translate2.SetRectGivenRect(0, 1, 0, vectors[3].GetY() + scaleVector.GetY());
+                        translate3.SetRectGivenRect(0, 0, 1, vectors[3].GetZ() + scaleVector.GetZ());
                         translate4.SetRectGivenRect(0, 0, 0, 1);
 
                         Console.WriteLine();
@@ -239,17 +209,17 @@ namespace MPG_Labs
                         Console.WriteLine();
 
                         Console.WriteLine("Old Vector 4:");
-                        vector4.PrintRect();
+                        vectors[3].PrintRect();
                         Console.WriteLine();
                         Console.WriteLine("New Vector 4");
-                        vector4.MatrixTranslation(scaleVector);
+                        vectors[3].MatrixTranslation(scaleVector);
                         Console.WriteLine();
-                        vector4.PrintRect();
+                        vectors[3].PrintRect();
 
                         //Center Vector is Recalculated via averaging out each Vector's value.
-                        avgX = (vector1.GetX() + vector2.GetX() + vector3.GetX() + vector4.GetX()) / 4;
-                        avgY = (vector1.GetY() + vector2.GetY() + vector3.GetY() + vector4.GetY()) / 4;
-                        avgZ = (vector1.GetZ() + vector2.GetZ() + vector3.GetZ() + vector4.GetZ()) / 4;
+                        avgX = (vectors[0].GetX() + vectors[1].GetX() + vectors[2].GetX() + vectors[3].GetX()) / 4;
+                        avgY = (vectors[0].GetY() + vectors[1].GetY() + vectors[2].GetY() + vectors[3].GetY()) / 4;
+                        avgZ = (vectors[0].GetZ() + vectors[1].GetZ() + vectors[2].GetZ() + vectors[3].GetZ()) / 4;
                         centerVector.SetRectGivenRect(avgX, avgY, avgZ);
                         Console.WriteLine(0);
                         Console.WriteLine("New Center Vector:");
@@ -277,50 +247,50 @@ namespace MPG_Labs
                         Console.WriteLine("Old Vectors:");
                         Console.WriteLine();
                         Console.WriteLine("Vector One:");
-                        vector1.PrintRect();
+                        vectors[0].PrintRect();
                         Console.WriteLine();
 
                         Console.WriteLine("Vector Two:");
-                        vector2.PrintRect();
+                        vectors[1].PrintRect();
                         Console.WriteLine();
 
                         Console.WriteLine("Vector Three:");
-                        vector3.PrintRect();
+                        vectors[2].PrintRect();
                         Console.WriteLine();
 
                         Console.WriteLine("Vector Four:");
-                        vector4.PrintRect();
+                        vectors[3].PrintRect();
                         Console.WriteLine();
                         Console.WriteLine("New Vectors:");
 
                         //The new Function MatrixRawScale is called on each Vector, with the scaleVector's X,Y,Z,W values called against it.
-                        vector1.MatrixRawScale(scaleVector);
-                        vector2.MatrixRawScale(scaleVector);
-                        vector3.MatrixRawScale(scaleVector);
-                        vector4.MatrixRawScale(scaleVector);
+                        vectors[0].MatrixRawScale(scaleVector);
+                        vectors[1].MatrixRawScale(scaleVector);
+                        vectors[2].MatrixRawScale(scaleVector);
+                        vectors[3].MatrixRawScale(scaleVector);
 
                         //Every Vector is then printed out with a label.
                         Console.WriteLine();
                         Console.WriteLine("Vector One:");
-                        vector1.PrintRect();
+                        vectors[0].PrintRect();
                         Console.WriteLine();
 
                         Console.WriteLine("Vector Two:");
-                        vector2.PrintRect();
+                        vectors[1].PrintRect();
                         Console.WriteLine();
 
                         Console.WriteLine("Vector Three:");
-                        vector3.PrintRect();
+                        vectors[2].PrintRect();
                         Console.WriteLine();
 
                         Console.WriteLine("Vector Four:");
-                        vector4.PrintRect();
+                        vectors[3].PrintRect();
                         Console.WriteLine();
 
                         //Recalculating the Center Vector.
-                        avgX = (vector1.GetX() + vector2.GetX() + vector3.GetX() + vector4.GetX()) / 4;
-                        avgY = (vector1.GetY() + vector2.GetY() + vector3.GetY() + vector4.GetY()) / 4;
-                        avgZ = (vector1.GetZ() + vector2.GetZ() + vector3.GetZ() + vector4.GetZ()) / 4;
+                        avgX = (vectors[0].GetX() + vectors[1].GetX() + vectors[2].GetX() + vectors[3].GetX()) / 4;
+                        avgY = (vectors[0].GetY() + vectors[1].GetY() + vectors[2].GetY() + vectors[3].GetY()) / 4;
+                        avgZ = (vectors[0].GetZ() + vectors[1].GetZ() + vectors[2].GetZ() + vectors[3].GetZ()) / 4;
                         centerVector.SetRectGivenRect(avgX, avgY, avgZ);
                         Console.WriteLine(0);
                         Console.WriteLine("New Center Vector:");
@@ -345,28 +315,28 @@ namespace MPG_Labs
                         scaleVector.SetRectGivenRect(tempX, tempY, tempZ);
 
                         //New Function MatrixCenterScale is called by every numbered Vector, using the XYZW of the scaleVector, and the XYZ of the previously defined centerVector.
-                        vector1.MatrixCenterScale(scaleVector, centerVector);
-                        vector2.MatrixCenterScale(scaleVector, centerVector);
-                        vector3.MatrixCenterScale(scaleVector, centerVector);
-                        vector4.MatrixCenterScale(scaleVector, centerVector);
+                        vectors[0].MatrixCenterScale(scaleVector, centerVector);
+                        vectors[1].MatrixCenterScale(scaleVector, centerVector);
+                        vectors[2].MatrixCenterScale(scaleVector, centerVector);
+                        vectors[3].MatrixCenterScale(scaleVector, centerVector);
 
                         //All Vectors are then printed and labeled.
                         Console.WriteLine();
 
                         Console.WriteLine("Vector One:");
-                        vector1.PrintRect();
+                        vectors[0].PrintRect();
 
                         Console.WriteLine();
                         Console.WriteLine("Vector Two:");
-                        vector2.PrintRect();
+                        vectors[1].PrintRect();
 
                         Console.WriteLine();
                         Console.WriteLine("Vector Three:");
-                        vector3.PrintRect();
+                        vectors[2].PrintRect();
 
                         Console.WriteLine();
                         Console.WriteLine("Vector Four:");
-                        vector4.PrintRect();
+                        vectors[3].PrintRect();
 
                         Console.WriteLine();
                         Console.ReadLine();
@@ -374,7 +344,121 @@ namespace MPG_Labs
                         i++;
                         break;
 
-                    case 4: //Exit the program
+                    case 4: //User is prompted by how much they'd like to scale the X, Y, and Z components by.
+                        Console.WriteLine("Rotating the Object.");
+
+                        Vector3D[] Rotvectors = new Vector3D[4];
+
+                        Rotvectors[0] = new Vector3D(vectors[0].GetX(), vectors[0].GetY(), vectors[0].GetZ());
+                        Rotvectors[0] = new Vector3D(vectors[1].GetX(), vectors[1].GetY(), vectors[1].GetZ());
+                        Rotvectors[1] = new Vector3D(vectors[2].GetX(), vectors[2].GetY(), vectors[2].GetZ());
+                        Rotvectors[2] = new Vector3D(vectors[3].GetX(), vectors[3].GetY(), vectors[3].GetZ());
+
+                        Console.WriteLine("How large of an angle would you like to use ? (Degrees)");
+                        float angleTheta = float.Parse(Console.ReadLine());
+
+                        angleTheta = vectors[0].DegreeToRad(angleTheta);
+                        Console.WriteLine("Converted to radians: " + angleTheta);
+
+
+                        Console.WriteLine("What Axis would you like to rotate around?");
+                        Console.WriteLine("(1.) X Axis");
+                        Console.WriteLine("(2.) Y Axis");
+                        Console.WriteLine("(3.) Z Axis");
+                        int choice2 = Convert.ToInt32(Console.ReadLine()); //User's choice is stored and used in the switch.
+                        switch (choice2)
+                        {
+                            case 1: // X Axis
+                                int vectorNumber = 0;
+
+                                while (vectorNumber < 4)
+                                {
+                                    tempX = Rotvectors[vectorNumber].GetX();//1X + 0y + 0Z + 0 * 1
+
+                                    //Get angle from axis to vectors, that’s theta
+
+                                    //0X + y * CosTheta + z * -SinTheta + 0 *1
+                                    tempY = (vectors[vectorNumber].GetY() * (float)Math.Cos(angleTheta)) + (vectors[vectorNumber].GetZ() * -(float)Math.Sin(angleTheta));
+                                    //0x + y * SinTheta + Z * CosTheta + 0 *1
+                                    tempZ = (vectors[vectorNumber].GetY() * (float)Math.Sin(angleTheta)) + (vectors[vectorNumber].GetZ() * (float)Math.Cos(angleTheta));
+
+                                    vectors[vectorNumber].SetRectGivenRect(tempX, tempY, tempZ);
+                                    vectorNumber++;
+                                }
+
+                                break;
+                            case 2: //Y Axis
+                                vectorNumber = 0;
+
+                                while (vectorNumber < 4)
+                                {
+                                    //X * CosTheta + 0Y + Z * SinTheta + 0 * 1
+                                    tempX = (vectors[vectorNumber].GetX() * ((float)Math.Cos(angleTheta)) + (vectors[vectorNumber].GetZ() * (float)Math.Sin(angleTheta)));
+                                    //0X + 1Y + 0Z + 0 * 1
+                                    tempY = vectors[vectorNumber].GetY();
+                                    //X * -SinTheta + 0Y + Z * CosTheta + 0 * 1
+                                    tempZ = (vectors[vectorNumber].GetX() * -(float)Math.Sin(angleTheta) + (vectors[vectorNumber].GetZ() * (float)Math.Cos(angleTheta)));
+
+                                    vectors[vectorNumber].SetRectGivenRect(tempX, tempY, tempZ);
+                                    vectorNumber++;
+                                }
+                                break;
+
+                            case 3: //Z Axis
+                                vectorNumber = 0;
+
+                                while (vectorNumber < 4)
+                                {
+                                    //X * CosTheta + Y * -SinTheta + 0Z + 0 * 1
+                                    tempX = (vectors[vectorNumber].GetX() * ((float)Math.Cos(angleTheta)) + (vectors[vectorNumber].GetY() * -(float)Math.Sin(angleTheta)));
+                                    //X * SinTheta + Y * CosTheta + 0Z + 0 * 1
+                                    tempY = (vectors[vectorNumber].GetX() * ((float)Math.Sin(angleTheta)) + (vectors[vectorNumber].GetY() * (float)Math.Cos(angleTheta)));
+                                    //0X + 0Y + Z + 0 * 1
+                                    tempZ = vectors[vectorNumber].GetZ();
+                                    //Vectors[vectorNumber].GetZ() * (Sin( angleTheta) + Math.Cos( angleTheta));
+
+                                    vectors[vectorNumber].SetRectGivenRect(tempX, tempY, tempZ);
+                                    vectorNumber++;
+                                }
+                                break;
+
+
+                            default:
+                                Console.WriteLine("Invalid Input, action cancelled - returning to Matrix menu.");
+                                CallSwitch(i);
+                                break;
+
+                        }
+                        vectors[0].SetRectGivenRect(vectors[0].GetX(), vectors[0].GetY(), vectors[0].GetZ());
+                        vectors[1].SetRectGivenRect(vectors[0].GetX(), vectors[0].GetY(), vectors[0].GetZ());
+                        vectors[2].SetRectGivenRect(vectors[1].GetX(), vectors[1].GetY(), vectors[1].GetZ());
+                        vectors[3].SetRectGivenRect(vectors[2].GetX(), vectors[2].GetY(), vectors[2].GetZ());
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine("Vector One:");
+                        vectors[0].PrintRect();
+                        Console.WriteLine();
+
+                        Console.WriteLine("Vector Two:");
+                        vectors[1].PrintRect();
+                        Console.WriteLine();
+
+                        Console.WriteLine("Vector Three:");
+                        vectors[2].PrintRect();
+                        Console.WriteLine();
+
+                        Console.WriteLine("Vector Four:");
+                        vectors[3].PrintRect();
+                        Console.WriteLine();
+
+                        Console.ReadLine();
+
+                        i++;
+                        break;
+
+
+                    case 5: //Exit the program
                         Environment.Exit(0);
                         break;
 
@@ -394,19 +478,19 @@ namespace MPG_Labs
             Console.WriteLine();
 
             Console.WriteLine("Vector One:");
-            vector1.PrintRect();
+            vectors[0].PrintRect();
 
             Console.WriteLine();
             Console.WriteLine("Vector Two:");
-            vector2.PrintRect();
+            vectors[1].PrintRect();
 
             Console.WriteLine();
             Console.WriteLine("Vector Three:");
-            vector3.PrintRect();
+            vectors[2].PrintRect();
 
             Console.WriteLine();
             Console.WriteLine("Vector Four:");
-            vector4.PrintRect();
+            vectors[3].PrintRect();
 
             Console.WriteLine();
             Console.ReadLine();
