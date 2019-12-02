@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace MPG_Labs
 {
@@ -19,19 +20,22 @@ namespace MPG_Labs
         float massTwo;          //Center of Mass Between both objects         Vector3D centerMass = new Vector3D();
 
         //User-supplied Force values
-        Vector3D force = new Vector3D();         float forceTime;        //How long force should last
+        Vector3D torqueForce = new Vector3D();         float forceTime;        //How long force should last
         float time = 0f;        //Overall simulation time         float timeStep = 0.02f; //Time Step.
 
         float barLength = 0f;   //Distance between both bars.
 
         float massCo = 0f;      //Mass Coefficient for cheaper division.
+        float torque = 0f;
+        float force = 0f;
 
         //Values for Velocity Verlet.
-        float theta = 0f;       
-        float olTheta = 0f;
-        float angVel = 0f;         float olVel = 0f;
-        float angAccel = 0f;
-        float olAccel;
+        float theta = 0f;       //Rads
+        
+        float olTheta = 0f;     //Rads
+        float angVel = 0f;      //Rads per Second         float olVel = 0f;       //Rads per Second
+        float angAccel = 0f;    //Rads Per Second Squared
+        float olAccel;          //Rads Per Second Squared
 
 
         //Center of Masses.
@@ -47,10 +51,6 @@ namespace MPG_Labs
             Console.WriteLine("Please Input a Mass for Object 2 (kg)");
             massTwo = float.Parse(Console.ReadLine());
 
-            //Get Starting Theta
-            Console.WriteLine("Please Input a starting Theta angle (degrees)");
-            olTheta = float.Parse(Console.ReadLine());
-
             //How far apart should the two masses be?
             Console.WriteLine("Distance between Objects");
             barLength = float.Parse(Console.ReadLine());
@@ -58,13 +58,19 @@ namespace MPG_Labs
             obj1.SetRectGivenRect(-barLength * 0.5f, 0, 0);
             obj2.SetRectGivenRect(barLength * 0.5f, 0, 0);
 
-            //Get Initial Force Magnitude
-            Console.WriteLine("Please Input the magnitude of a force (N)");
-            float tempMag = float.Parse(Console.ReadLine());
-            Console.WriteLine("Please Input the Direction of the Force (Degrees)");
-            float tempDeg = float.Parse(Console.ReadLine());
+            //Get Starting Theta
+            Console.WriteLine("Please Input a starting Theta angle (degrees)");
+            olTheta = obj1.DegreeToRad(float.Parse(Console.ReadLine()));
 
-            force.SetRectGivenPolar(tempMag, tempDeg);
+            //Get Initial Force Magnitude
+            //Console.WriteLine("Please Input the magnitude of a force (N)");
+            //float tempMag = float.Parse(Console.ReadLine());
+            //Console.WriteLine("Please Input the Direction of the Force (Degrees)");
+            //float tempDeg = float.Parse(Console.ReadLine());
+
+
+
+            //force.SetRectGivenPolar(tempMag, tempDeg);
 
             //Get Time for simulation run
             Console.WriteLine("Please Input a Time (seconds) to run");
@@ -84,6 +90,15 @@ namespace MPG_Labs
                 theta = olTheta + olVel * timeStep + 0.5f * olAccel * timeStep * timeStep;
                 //angAccel = HOW TO CALCULATE                 angVel = olVel + 0.5f * (angAccel + olAccel) * timeStep;
 
+                //CALCULATE TORQUE
+                //T = radius of Force * sin Theta
+                //If F = 10N, Theta = 30 degrees
+                //-0.281 * 10 * Sin(30)
+                ///-0.281 * 10*0.5
+                //-0.1405*10
+                //-1.405 Nm = Torque
+                torque = -barLength * force * (float)Math.Sin(olTheta);
+
 
                 Console.WriteLine("");
                 obj1.SetRectGivenPolar(-barLength, theta);
@@ -97,12 +112,24 @@ namespace MPG_Labs
                 obj1.PrintRect();
                 obj2.PrintRect();
 
+                WriteFile("Rotational Dynamics", time, olAccel, olVel, olTheta);
 
                 //Update old variables
                 olAccel = angAccel;
                 olVel = angVel;
                 olTheta = theta;
                 time += timeStep;
+            }
+        }
+
+
+        private static void WriteFile(string filename, float time, float acceleration, float velocity, float position)
+        {
+            //WARNING: CHANGE OUTPUT FOLDER TO SOMEWHERE ELSE
+            using (StreamWriter stream = new StreamWriter(Environment.SpecialFolder.Desktop + "\\TestFolder\\" + filename + ".csv", true))
+            {
+                string output = time.ToString() + "," + acceleration.ToString() + "," + velocity.ToString() + "," + position.ToString();
+                stream.WriteLine(output);
             }
         }
     }
