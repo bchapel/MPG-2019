@@ -136,9 +136,12 @@ namespace MPG_Labs
                 Console.WriteLine("Center of Mass Position: ");
                 centerMassPos.PrintRect();
 
+                Console.WriteLine("Time: " + time);
                 Console.WriteLine("Angular Acceleration: " + angAccel + "rad/s square");
                 Console.WriteLine("Angular Velocity: " + angVel + "rad/s");
                 Console.WriteLine("Angular Position: " + theta + "rad");
+
+                Console.WriteLine();
                 WriteFile("Rotational Dynamics", time, olAccel, olVel, olTheta);        //Writing to .CSV document.
                 time += timeStep;   //Updating Time.
             }
