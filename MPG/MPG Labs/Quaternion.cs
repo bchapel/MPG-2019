@@ -32,6 +32,13 @@ namespace MPG_Labs
             vector = inputVector;
         }
 
+        //Let's Quaternion be set after construction.
+        public void SetQuatGivenQuat(float inputScalar, Vector3D inputVector)
+        {
+            scalar = inputScalar;
+            vector = inputVector;
+        }
+
         //Add two Quaternions.  Operator overload for easy use.
         public static Quaternion operator +(Quaternion U, Quaternion V)
         {
@@ -90,11 +97,15 @@ namespace MPG_Labs
         }
 
         //Rotates the Quaternion.
-        public Quaternion Rotation(Quaternion input, float angleTheta)
+        public Quaternion Rotation(Quaternion input, Vector3D point)
         {
+            float scale = (float) Math.Cos(input.scalar/2);
 
+            Quaternion calc = new Quaternion((float) Math.Sin(input.scalar), input.vector * scale);
+            Quaternion P = new Quaternion(0, point);
+            Quaternion PQ = P ^ -calc; //Quaternion Multiply the Inverse of Input.
 
-            return new Quaternion();
+            return calc ^ PQ;
         }
 
         //Prints the Scalar value of the Quaternion.

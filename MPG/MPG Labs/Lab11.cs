@@ -17,8 +17,42 @@ namespace MPG_Labs
         Quaternion P = new Quaternion(1, new Vector3D(0,2,-3));
         Quaternion Q = new Quaternion(2, new Vector3D(4, -1, 1));
 
+        Vector3D tempV = new Vector3D();
+        Vector3D point = new Vector3D();
+
         public Lab11()
         {
+            //Input a rotation angle in degrees.
+            Console.WriteLine("Please input an Angle (degrees)");
+            float temp = float.Parse(Console.ReadLine());
+
+            //Asking user for Vector input.
+            Console.WriteLine("Please input a Vector. Ex: 0 12 13");
+            tempV.ConstructInput(Console.ReadLine());
+
+            //Construction and displaying of Quaternion from above values.
+            Quaternion rotation = new Quaternion(temp, tempV);
+
+            rotation.PrintQuaternion();
+            Console.ReadLine();
+
+            //Construction of a Vector from user input.
+            Console.WriteLine("Please input a Point to rotate. Ex: 0 12 13");
+            point.ConstructInput(Console.ReadLine());
+
+            Console.WriteLine();
+            //Calling the Rotation function with constructed quaternion and Vector from above.
+            Quaternion tempQ = rotation.Rotation(rotation, point);
+
+            Console.WriteLine("Rotation Result:");
+            tempQ.PrintQuaternion();
+
+            Console.ReadLine();
+            Console.Clear();
+
+
+
+
             //Gives user the Initila values so they know what they are.
             Console.WriteLine("Starting Quaternions)");
             P.PrintQuaternion();
