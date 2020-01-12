@@ -14,41 +14,41 @@ namespace MPG_Labs
          */
 
         //Two Quaternions as defined by the lab instructions.
-        Quaternion P = new Quaternion(1, new Vector3D(0,2,-3));
-        Quaternion Q = new Quaternion(2, new Vector3D(4, -1, 1));
+        Quaternion P = new Quaternion(3, new Vector3D(4,3,-8));
+        Quaternion Q = new Quaternion(-1, new Vector3D(-7, 0, 4));
 
         Vector3D tempV = new Vector3D();
         Vector3D point = new Vector3D();
 
         public Lab11()
         {
-            //Input a rotation angle in degrees.
-            Console.WriteLine("Please input an Angle (degrees)");
-            float temp = float.Parse(Console.ReadLine());
+            ////Input a rotation angle in degrees.
+            //Console.WriteLine("Please input an Angle (degrees)");
+            //float temp = float.Parse(Console.ReadLine());
 
-            //Asking user for Vector input.
-            Console.WriteLine("Please input a Vector. Ex: 0 12 13");
-            tempV.ConstructInput(Console.ReadLine());
+            ////Asking user for Vector input.
+            //Console.WriteLine("Please input a Vector. Ex: 0 12 13");
+            //tempV.ConstructInput(Console.ReadLine());
 
-            //Construction and displaying of Quaternion from above values.
-            Quaternion rotation = new Quaternion(temp, tempV);
+            ////Construction and displaying of Quaternion from above values.
+            //Quaternion rotation = new Quaternion(temp, tempV);
 
-            rotation.PrintQuaternion();
-            Console.ReadLine();
+            //rotation.PrintQuaternion();
+            //Console.ReadLine();
 
-            //Construction of a Vector from user input.
-            Console.WriteLine("Please input a Point to rotate. Ex: 0 12 13");
-            point.ConstructInput(Console.ReadLine());
+            ////Construction of a Vector from user input.
+            //Console.WriteLine("Please input a Point to rotate. Ex: 0 12 13");
+            //point.ConstructInput(Console.ReadLine());
 
-            Console.WriteLine();
-            //Calling the Rotation function with constructed quaternion and Vector from above.
-            Quaternion tempQ = rotation.Rotation(rotation, point);
+            //Console.WriteLine();
+            ////Calling the Rotation function with constructed quaternion and Vector from above.
+            //Quaternion tempQ = rotation.Rotation(rotation, point);
 
-            Console.WriteLine("Rotation Result:");
-            tempQ.PrintQuaternion();
+            //Console.WriteLine("Rotation Result:");
+            //tempQ.PrintQuaternion();
 
-            Console.ReadLine();
-            Console.Clear();
+            //Console.ReadLine();
+            //Console.Clear();
 
 
 
@@ -60,8 +60,13 @@ namespace MPG_Labs
 
             //Adding the Two Quatrnions and printing their sum.
             Console.WriteLine();
-            Console.WriteLine("Addition");
+            Console.WriteLine("Addition P + Q");
             Quaternion T = P + Q;
+            T.PrintQuaternion();
+
+            Console.WriteLine();
+            Console.WriteLine("Addition Q + P");
+            T = Q + P;
             T.PrintQuaternion();
 
             //Subtracting the Two Quatrnions and printing their difference.
@@ -70,19 +75,25 @@ namespace MPG_Labs
             T = P - Q;
             T.PrintQuaternion();
 
-            //Scaling the Quaternion by a Float value and printing the result.
-            Console.WriteLine();
-            Console.WriteLine("Scalar Multiplication P");
-            T = 5f * P;
-            T.PrintQuaternion();
-            Console.WriteLine("Scalar Multiplication Q");
-            T = 5f * Q;
+            ////Scaling the Quaternion by a Float value and printing the result.
+            //Console.WriteLine();
+            //Console.WriteLine("Scalar Multiplication P");
+            //T = 5f * P;
+            //T.PrintQuaternion();
+            //Console.WriteLine("Scalar Multiplication Q");
+            //T = 5f * Q;
+            //T.PrintQuaternion();
+
+            //Multiplying two Quaternions against one another and printing the result.
+            Console.WriteLine("");
+            Console.WriteLine("Quaternion Multiplication P");
+            T = P ^ Q;
             T.PrintQuaternion();
 
             //Multiplying two Quaternions against one another and printing the result.
             Console.WriteLine("");
-            Console.WriteLine("Quaternion Multiplication");
-            T = P ^ Q;
+            Console.WriteLine("Quaternion Multiplication Q");
+            T = Q ^ P;
             T.PrintQuaternion();
 
             //Printing the Magnitude of Quaternions P and Q.
