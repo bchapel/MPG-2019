@@ -7,7 +7,7 @@ namespace MPG_Labs
     /*
     Name: Lab 07 - Closest Points.
     Author: Bowen Chapel
-    Date:
+    Date: January 2020
     Summary: 
 
     */

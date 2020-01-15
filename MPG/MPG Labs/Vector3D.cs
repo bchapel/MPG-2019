@@ -175,6 +175,7 @@ namespace MPG_Labs
         //Normalizes the specified Vector.
         public static Vector3D operator !(Vector3D input)
         {
+            //V^ = 1/|V|
             if (input.X == 0 && input.Y == 0 & input.Z == 0)
             {
                 Console.WriteLine("ERROR: DIVIDE BY ZERO ERROR. RETURNING VALUE OF ZERO INSTEAD");
@@ -182,12 +183,7 @@ namespace MPG_Labs
             }
             else
             {
-                float normal = (float)Math.Sqrt(input.X + input.Y + input.Z);
-                input.X /= normal;
-                input.Y /= normal;
-                input.Z /= normal;
-
-                return input;
+                return (1 /input.GetMag()) * input;
             }
         }
 
@@ -253,7 +249,7 @@ namespace MPG_Labs
             {
                 if (Y >= 0)
                 {
-                    Console.WriteLine("Test Data: "+ X / Math.Sqrt(X * X + Y * Y));
+                    Console.WriteLine("Test Data: " + X / Math.Sqrt(X * X + Y * Y));
                     return (float)Math.Acos(X / Math.Sqrt(X * X + Y * Y));
                 }
 
@@ -317,7 +313,7 @@ namespace MPG_Labs
         }
 
         //Returns a Pepindicular Projection of Two Vectors.
-        public Vector3D PerpProjection (Vector3D V, Vector3D U)
+        public Vector3D PerpProjection(Vector3D V, Vector3D U)
         {
             return U - V.ParaProjection(V, U);
         }
@@ -394,10 +390,10 @@ namespace MPG_Labs
         }
 
         //Returns the Closest Point, S, on a Plane, n, to a Specified Point Q
-        public Vector3D ClosestPointsPlane(Vector3D p, Vector3D q,Vector3D n)
+        public Vector3D ClosestPointsPlane(Vector3D p, Vector3D q, Vector3D n)
         {
             Vector3D PQ = q - p;
-            Vector3D S = q -(n.ParaProjection(PQ, n));
+            Vector3D S = q - (n.ParaProjection(PQ, n));
             return S;
         }
 
@@ -419,6 +415,39 @@ namespace MPG_Labs
             string[] split = input.Split(' ');
             float[] num = Array.ConvertAll<string, float>(split, float.Parse);
             SetRectGivenRect(num[0], num[1], num[2]);
+        }
+
+        //Rotate a Vector around the X axis by the specified angle (degrees).
+        public Vector3D XRotation(float theta)
+        {
+            theta = this.DegreeToRad(theta);
+            float X = this.X;
+            float Y = this.Y * (float)Math.Cos(theta) + this.Z * (float)Math.Sin(theta);
+            float Z = this.Y * (float)Math.Sin(theta) + this.Z * (float)Math.Cos(theta);
+
+            return new Vector3D(X, Y, Z);
+        }
+
+        //Rotate a Vector around the Y axis by the specified angle (degrees).
+        public Vector3D YRotation(float theta)
+        {
+            theta = this.DegreeToRad(theta);
+            float X = this.X * ((float)Math.Cos(theta)) + this.Z * (float)Math.Sin(theta);
+            float Y = this.Y;
+            float Z = this.X * -(float)Math.Sin(theta) + this.Z * (float)Math.Cos(theta);
+
+            return new Vector3D(X, Y, Z);
+        }
+
+        //Rotate a Vector around the Z axis by the specified angle (degrees).
+        public Vector3D ZRotation(float theta)
+        {
+            theta = this.DegreeToRad(theta);
+            float X = this.X * (float)Math.Cos(theta) + this.Y * -(float)Math.Sin(theta);
+            float Y = this.X * (float)Math.Sin(theta) + this.Y * (float)Math.Cos(theta);
+            float Z = this.Z;
+
+            return new Vector3D(X, Y, Z);
         }
     }
 }

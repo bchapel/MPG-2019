@@ -21,7 +21,6 @@ namespace MPG_Labs
         Vector3D centerVector = new Vector3D();
         Vector3D scaleVector = new Vector3D();
         Vector3D translateVector = new Vector3D();
-        Vector3D temp = new Vector3D();
         float avgX;
         float avgY;
         float avgZ;
@@ -29,15 +28,12 @@ namespace MPG_Labs
 
         public Lab10()
         {
-
-
             //This value is used for the while loop below, to ensure every Vector from the array above is cycled through.
             int number = 0;
 
             string input = "";
             string[] split;
             float[] num;
-
 
             //This loop uses the Vector Array created above so that the User may specify the X, Y, Z values of all of every Vector.
             while (number < 4)
@@ -49,13 +45,13 @@ namespace MPG_Labs
                 input = Console.ReadLine();
                 split = input.Split(' ');
                 num = Array.ConvertAll<string, float>(split, float.Parse);
-                temp.SetRectGivenRect(num[0], num[1], num[2]);
-
                 Console.WriteLine();
 
+                //Assigning empty Vector to avoid null reference.
+                vectors[number] = new Vector3D(0, 0, 0);
                 //Each Vector correspondingly has it's X,Y,Z components assigned.
-                vectors[number] = temp;
-
+                vectors[number].SetRectGivenRect(num[0], num[1], num[2]);
+                vectors[number].PrintRect();
                 Console.WriteLine();
                 number++;
             }
@@ -104,12 +100,6 @@ namespace MPG_Labs
                     case 1:
                         Console.WriteLine("Translating Object");
 
-                        //4D Vectors are created so the User can see a more Mathematical representation of the Vector changes.
-                        Vector3D translate1 = new Vector3D(0, 0, 0, 0);
-                        Vector3D translate2 = new Vector3D(0, 0, 0, 0);
-                        Vector3D translate3 = new Vector3D(0, 0, 0, 0);
-                        Vector3D translate4 = new Vector3D(0, 0, 0, 0);
-
                         //User is Prompted for X, Y, and Z changes, this data is then stored.
                         Console.WriteLine("How much do you want to translate the object's X value by?");
                         tempX = float.Parse(Console.ReadLine());
@@ -120,20 +110,7 @@ namespace MPG_Labs
 
                         //ScaleVector is a temporary vector used to store said variables.
                         scaleVector.SetRectGivenRect(tempX, tempY, tempZ);
-
-
-                        //The temporary translate Vectors are given data, and printed.
-                        translate1.SetRectGivenRect(1, 0, 0, vectors[0].GetX() + scaleVector.GetX());
-                        translate2.SetRectGivenRect(0, 1, 0, vectors[0].GetY() + scaleVector.GetY());
-                        translate3.SetRectGivenRect(0, 0, 1, vectors[0].GetZ() + scaleVector.GetZ());
-                        translate4.SetRectGivenRect(0, 0, 0, 1);
-                        
-
-                        Console.WriteLine();
-                        translate1.PrintMatrix();
-                        translate2.PrintMatrix();
-                        translate3.PrintMatrix();
-                        translate4.PrintMatrix();
+                        scaleVector.PrintRect();
 
                         Console.WriteLine();
 
@@ -148,19 +125,6 @@ namespace MPG_Labs
 
                         Console.ReadLine();
 
-                        //The temporary translate Vectors are given data, and printed.
-                        translate1.SetRectGivenRect(1, 0, 0, vectors[1].GetX() + scaleVector.GetX());
-                        translate2.SetRectGivenRect(0, 1, 0, vectors[1].GetY() + scaleVector.GetY());
-                        translate3.SetRectGivenRect(0, 0, 1, vectors[1].GetZ() + scaleVector.GetZ());
-                        translate4.SetRectGivenRect(0, 0, 0, 1);
-
-                        Console.WriteLine();
-                        translate1.PrintMatrix();
-                        translate2.PrintMatrix();
-                        translate3.PrintMatrix();
-                        translate4.PrintMatrix();
-                        Console.WriteLine();
-
                         Console.WriteLine("Old Vector 2:");
                         vectors[1].PrintRect();
                         Console.WriteLine();
@@ -172,20 +136,6 @@ namespace MPG_Labs
 
                         Console.ReadLine();
 
-                        //And so on....
-
-                        translate1.SetRectGivenRect(1, 0, 0, vectors[2].GetX() + scaleVector.GetX());
-                        translate2.SetRectGivenRect(0, 1, 0, vectors[2].GetY() + scaleVector.GetY());
-                        translate3.SetRectGivenRect(0, 0, 1, vectors[2].GetZ() + scaleVector.GetZ());
-                        translate4.SetRectGivenRect(0, 0, 0, 1);
-
-                        Console.WriteLine();
-                        translate1.PrintMatrix();
-                        translate2.PrintMatrix();
-                        translate3.PrintMatrix();
-                        translate4.PrintMatrix();
-                        Console.WriteLine();
-
                         Console.WriteLine("Old Vector 3:");
                         vectors[2].PrintRect();
                         Console.WriteLine();
@@ -195,18 +145,6 @@ namespace MPG_Labs
                         vectors[2].PrintRect();
 
                         Console.ReadLine();
-
-                        translate1.SetRectGivenRect(1, 0, 0, vectors[3].GetX() + scaleVector.GetX());
-                        translate2.SetRectGivenRect(0, 1, 0, vectors[3].GetY() + scaleVector.GetY());
-                        translate3.SetRectGivenRect(0, 0, 1, vectors[3].GetZ() + scaleVector.GetZ());
-                        translate4.SetRectGivenRect(0, 0, 0, 1);
-
-                        Console.WriteLine();
-                        translate1.PrintMatrix();
-                        translate2.PrintMatrix();
-                        translate3.PrintMatrix();
-                        translate4.PrintMatrix();
-                        Console.WriteLine();
 
                         Console.WriteLine("Old Vector 4:");
                         vectors[3].PrintRect();
@@ -347,19 +285,8 @@ namespace MPG_Labs
                     case 4: //User is prompted by how much they'd like to scale the X, Y, and Z components by.
                         Console.WriteLine("Rotating the Object.");
 
-                        Vector3D[] Rotvectors = new Vector3D[4];
-
-                        Rotvectors[0] = new Vector3D(vectors[0].GetX(), vectors[0].GetY(), vectors[0].GetZ());
-                        Rotvectors[0] = new Vector3D(vectors[1].GetX(), vectors[1].GetY(), vectors[1].GetZ());
-                        Rotvectors[1] = new Vector3D(vectors[2].GetX(), vectors[2].GetY(), vectors[2].GetZ());
-                        Rotvectors[2] = new Vector3D(vectors[3].GetX(), vectors[3].GetY(), vectors[3].GetZ());
-
                         Console.WriteLine("How large of an angle would you like to use ? (Degrees)");
                         float angleTheta = float.Parse(Console.ReadLine());
-
-                        angleTheta = vectors[0].DegreeToRad(angleTheta);
-                        Console.WriteLine("Converted to radians: " + angleTheta);
-
 
                         Console.WriteLine("What Axis would you like to rotate around?");
                         Console.WriteLine("(1.) X Axis");
@@ -369,20 +296,11 @@ namespace MPG_Labs
                         switch (choice2)
                         {
                             case 1: // X Axis
-                                int vectorNumber = 0;
 
+                                int vectorNumber = 0;
                                 while (vectorNumber < 4)
                                 {
-                                    tempX = Rotvectors[vectorNumber].GetX();//1X + 0y + 0Z + 0 * 1
-
-                                    //Get angle from axis to vectors, that’s theta
-
-                                    //0X + y * CosTheta + z * -SinTheta + 0 *1
-                                    tempY = (vectors[vectorNumber].GetY() * (float)Math.Cos(angleTheta)) + (vectors[vectorNumber].GetZ() * -(float)Math.Sin(angleTheta));
-                                    //0x + y * SinTheta + Z * CosTheta + 0 *1
-                                    tempZ = (vectors[vectorNumber].GetY() * (float)Math.Sin(angleTheta)) + (vectors[vectorNumber].GetZ() * (float)Math.Cos(angleTheta));
-
-                                    vectors[vectorNumber].SetRectGivenRect(tempX, tempY, tempZ);
+                                   vectors[vectorNumber] = vectors[vectorNumber].XRotation(angleTheta);
                                     vectorNumber++;
                                 }
 
@@ -392,14 +310,7 @@ namespace MPG_Labs
 
                                 while (vectorNumber < 4)
                                 {
-                                    //X * CosTheta + 0Y + Z * SinTheta + 0 * 1
-                                    tempX = (vectors[vectorNumber].GetX() * ((float)Math.Cos(angleTheta)) + (vectors[vectorNumber].GetZ() * (float)Math.Sin(angleTheta)));
-                                    //0X + 1Y + 0Z + 0 * 1
-                                    tempY = vectors[vectorNumber].GetY();
-                                    //X * -SinTheta + 0Y + Z * CosTheta + 0 * 1
-                                    tempZ = (vectors[vectorNumber].GetX() * -(float)Math.Sin(angleTheta) + (vectors[vectorNumber].GetZ() * (float)Math.Cos(angleTheta)));
-
-                                    vectors[vectorNumber].SetRectGivenRect(tempX, tempY, tempZ);
+                                    vectors[vectorNumber] = vectors[vectorNumber].YRotation(angleTheta);
                                     vectorNumber++;
                                 }
                                 break;
@@ -409,15 +320,7 @@ namespace MPG_Labs
 
                                 while (vectorNumber < 4)
                                 {
-                                    //X * CosTheta + Y * -SinTheta + 0Z + 0 * 1
-                                    tempX = (vectors[vectorNumber].GetX() * ((float)Math.Cos(angleTheta)) + (vectors[vectorNumber].GetY() * -(float)Math.Sin(angleTheta)));
-                                    //X * SinTheta + Y * CosTheta + 0Z + 0 * 1
-                                    tempY = (vectors[vectorNumber].GetX() * ((float)Math.Sin(angleTheta)) + (vectors[vectorNumber].GetY() * (float)Math.Cos(angleTheta)));
-                                    //0X + 0Y + Z + 0 * 1
-                                    tempZ = vectors[vectorNumber].GetZ();
-                                    //Vectors[vectorNumber].GetZ() * (Sin( angleTheta) + Math.Cos( angleTheta));
-
-                                    vectors[vectorNumber].SetRectGivenRect(tempX, tempY, tempZ);
+                                    vectors[vectorNumber] = vectors[vectorNumber].ZRotation(angleTheta);
                                     vectorNumber++;
                                 }
                                 break;
@@ -429,11 +332,7 @@ namespace MPG_Labs
                                 break;
 
                         }
-                        vectors[0].SetRectGivenRect(vectors[0].GetX(), vectors[0].GetY(), vectors[0].GetZ());
-                        vectors[1].SetRectGivenRect(vectors[0].GetX(), vectors[0].GetY(), vectors[0].GetZ());
-                        vectors[2].SetRectGivenRect(vectors[1].GetX(), vectors[1].GetY(), vectors[1].GetZ());
-                        vectors[3].SetRectGivenRect(vectors[2].GetX(), vectors[2].GetY(), vectors[2].GetZ());
-                        Console.WriteLine();
+
                         Console.WriteLine();
                         Console.WriteLine();
                         Console.WriteLine("Vector One:");
